@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <!-- Main outline: circle, ear, face, muzzle, and jaw -->
+  <path d="M 190 200 A 90 90 0 1 1 140 50 Q 165 40, 185 24 L 170 45 L 222 125 C 230 138, 224 150, 206 150 L 195 140" fill="none" stroke="black" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Inner neck curve -->
+  <path d="M 115 80 Q 135 120, 190 155" fill="none" stroke="black" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
