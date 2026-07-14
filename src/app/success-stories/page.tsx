@@ -50,7 +50,7 @@ const testimonials = [
     src: Kp,
   },
   {
-    parent: "Sanya Iyer (USA)",
+    parent: "Sireesh Chamarthi (USA)",
     child: "Nishanth",
     quote:
       "We're thrilled with our experience at the academy! Nishanth's passion for chess has skyrocketed, and it's all thanks to the fantastic coaching. The instructors are not only knowledgeable but also incredibly supportive, making even the most complex strategies fun and accessible. It's been amazing to see Nishanth's confidence grow, and his critical thinking skills develop. We're so proud to be a part of this academy, and we highly recommend it to anyone looking for a great learning experience!",
