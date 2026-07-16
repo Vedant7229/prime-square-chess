@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -20,10 +20,42 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+
+  // Hide navbar on scroll, show when at top
+  useEffect(() => {
+    const handleScroll = () => {
+      if (mobileMenuOpen) {
+        setNavVisible(true);
+        return;
+      }
+      if (window.scrollY > 50) {
+        setNavVisible(false);
+      } else {
+        setNavVisible(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mobileMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 w-full z-50 bg-surface-bright/90 backdrop-blur-md border-b border-border-warm editorial-shadow">
-      <nav className="flex justify-between items-center max-w-container-max mx-auto px-6 md:px-margin-desktop h-[92px]">
+    <header className={`sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md max-md:border-b max-md:border-border-warm/60 max-md:shadow-sm md:bg-surface-bright/90 md:border-b md:border-border-warm md:editorial-shadow transition-transform duration-300 ease-in-out ${
+      navVisible ? "translate-y-0" : "-translate-y-full"
+    }`}>
+      <nav className="flex justify-between items-center max-w-container-max mx-auto px-6 md:px-margin-desktop h-[80px] md:h-[92px]">
         {/* Logo */}
         <Link href="/" className="h-16 w-56 flex items-center relative">
           <Image
@@ -69,53 +101,67 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-primary hover:bg-surface-container rounded-lg"
+            className="md:hidden p-3 text-primary hover:bg-surface-container rounded-lg focus:outline-none transition-colors active:scale-95"
             aria-label="Toggle mobile menu"
           >
-            <MaterialIcon
-              name={mobileMenuOpen ? "close" : "menu"}
-              className="text-2xl"
-            />
+            <div className={`transition-transform duration-300 ${mobileMenuOpen ? "rotate-90" : ""}`}>
+              <MaterialIcon
+                name={mobileMenuOpen ? "close" : "menu"}
+                className="text-2xl block"
+              />
+            </div>
           </button>
         </div>
       </nav>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed top-[92px] left-0 w-full h-[calc(100vh-92px)] bg-surface-bright/95 backdrop-blur-lg z-40 border-t border-border-warm flex flex-col p-6 animate-fade-in">
-          <div className="flex flex-col gap-6 mt-8">
-            {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`font-headline-md text-2xl transition-colors duration-300 py-2 border-b border-border-warm/50 ${isActive
-                      ? "text-primary font-bold"
-                      : "text-on-surface-variant hover:text-primary"
-                    }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="mt-auto mb-16">
-            <Link
-              href="/book"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full bg-primary text-on-primary font-button text-button px-6 py-4 rounded-lg hover:bg-primary-container active:scale-95 duration-150 transition-all text-center"
-            >
-              Book Your Free Trial
-            </Link>
-          </div>
+      {/* Mobile Drawer Menu with smooth animation */}
+      <div
+        className={`md:hidden fixed top-[80px] md:top-[92px] left-0 w-full h-[calc(100vh-80px)] md:h-[calc(100vh-92px)] bg-surface-bright z-40 border-t border-border-warm flex flex-col p-6 transition-all duration-300 ease-in-out ${
+          mobileMenuOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+      >
+        <div className="flex flex-col gap-2 mt-8">
+          {navLinks.map((link, idx) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`font-headline-md text-2xl transition-all duration-300 py-4 px-2 border-b border-border-warm/50 flex items-center justify-between group active:bg-surface-container-low rounded-lg ${
+                  isActive
+                    ? "text-primary font-bold"
+                    : "text-on-surface-variant hover:text-primary"
+                } ${mobileMenuOpen ? "opacity-0 animate-fade-up" : ""}`}
+                style={{ animationDelay: `${idx * 50}ms` }}
+              >
+                <span>{link.label}</span>
+                <MaterialIcon
+                  name="chevron_right"
+                  className={`text-xl transition-transform duration-300 ${
+                    isActive ? "text-primary translate-x-1" : "text-on-surface-variant/40 group-hover:translate-x-1"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </div>
-      )}
+
+        <div className={`mt-auto mb-16 px-2 ${mobileMenuOpen ? "opacity-0 animate-fade-up" : ""}`} style={{ animationDelay: `${navLinks.length * 50}ms` }}>
+          <Link
+            href="/book"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block w-full bg-primary text-on-primary font-button text-button px-6 py-4 rounded-xl hover:bg-primary-container active:scale-[0.98] duration-150 transition-all text-center shadow-md font-semibold text-lg"
+          >
+            Book Your Free Trial
+          </Link>
+        </div>
+      </div>
     </header>
   );
 }

@@ -9,36 +9,36 @@ const footerLogoUrl =
 
 export default function Footer() {
   return (
-    <footer className="bg-primary pt-16 md:pt-section-gap pb-12 text-surface-bright/80">
-      <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
+    <footer className="bg-primary pt-12 md:pt-section-gap pb-12 max-md:pb-8 text-surface-bright/80">
+      <div className="max-w-container-max mx-auto px-6 max-md:px-5 md:px-margin-desktop">
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 md:gap-gutter mb-16 md:mb-20 items-start">
-          {/* Logo & Info */}
-          <div className="space-y-6 md:pr-8">
-            <div className="relative w-56 h-16">
+        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12 md:gap-gutter mb-12 md:mb-20 items-start">
+          {/* Logo & Info — centered on mobile */}
+          <div className="space-y-5 md:space-y-6 md:pr-8 flex flex-col max-md:items-center max-md:text-center">
+            <div className="relative w-48 md:w-56 h-14 md:h-16 max-md:mx-auto">
               <Image
                 src={footerLogoUrl}
                 alt="Prime Square Logo"
                 fill
-                className="object-contain brightness-0 invert -ml-4"
+                className="object-contain brightness-0 invert -ml-4 max-md:ml-0"
                 sizes="230px"
               />
             </div>
-            <p className="text-sm leading-relaxed">
+            <p className="text-[13px] md:text-sm leading-relaxed text-surface-bright/70 max-w-md">
               Prime Square Chess Academy offers structured online chess
               education through personalized coaching from experienced
               tournament players and FIDE-rated coaches. Proudly supporting
               students across the USA, UK, Canada, Qatar, India, and beyond.
             </p>
-            <div className="pt-2 space-y-4">
-              <p className="text-sm text-surface-bright/80 font-medium">
+            <div className="pt-1 md:pt-2 space-y-4 max-md:text-center w-full">
+              <p className="text-[13px] md:text-sm text-surface-bright/90 font-medium break-all max-md:break-normal">
                 Email - primesquarechessacademy@gmail.com
               </p>
-              {/* Social Icons */}
-              <div className="flex gap-4 items-center">
+              {/* Social Icons — larger touch targets on mobile */}
+              <div className="flex gap-3 md:gap-4 items-center max-md:justify-center">
                 <a
                   href="#"
-                  className="w-11 h-11 flex items-center justify-center rounded-full bg-surface-bright/10 hover:bg-surface-bright/20 transition-all p-2.5"
+                  className="w-12 h-12 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-surface-bright/10 hover:bg-surface-bright/20 active:bg-surface-bright/25 transition-all p-2.5 active:scale-95"
                   aria-label="Facebook"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="w-full h-full">
@@ -49,18 +49,18 @@ export default function Footer() {
                   href="https://api.whatsapp.com/send/?phone=918980635996&text=Hi%21+I+am+interested+in+chess+classes.&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-11 h-11 flex items-center justify-center rounded-full bg-surface-bright/10 hover:bg-surface-bright/20 transition-all p-2.5"
+                  className="w-12 h-12 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-surface-bright/10 hover:bg-surface-bright/20 active:bg-surface-bright/25 transition-all p-2.5 active:scale-95"
                   aria-label="WhatsApp"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="w-full h-full">
-                    <path fill="rgb(255, 248, 248)" d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z" />
+                    <path fill="rgb(255, 248, 248)" d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z" />
                   </svg>
                 </a>
                 <a
                   href="https://www.instagram.com/primesquarechess?igsh=MWgzdmExNzNsaXluNw=="
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-11 h-11 flex items-center justify-center rounded-full bg-surface-bright/10 hover:bg-surface-bright/20 transition-all p-2.5"
+                  className="w-12 h-12 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-surface-bright/10 hover:bg-surface-bright/20 active:bg-surface-bright/25 transition-all p-2.5 active:scale-95"
                   aria-label="Instagram"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="w-full h-full">
@@ -71,81 +71,87 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Programs Links */}
-          <div>
-            <h6 className="font-label-md text-label-md text-surface-bright mb-6 uppercase tracking-widest">
-              Programs
-            </h6>
-            <ul className="space-y-4">
-              {[
-                "Beginner Foundations",
-                "Intermediate Masterness",
-                "Advanced Pro",
-                "One to One Classes",
-                "Group Classes",
-              ].map((p) => (
-                <li key={p}>
-                  <Link
-                    href="/programs"
-                    className="hover:text-surface-bright transition-colors text-sm"
-                  >
-                    {p}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Divider on mobile between brand info and link columns */}
+          <div className="max-md:col-span-1 max-md:border-t max-md:border-surface-bright/10 max-md:-mt-4 max-md:pt-0 md:hidden" aria-hidden="true" />
 
-          {/* Explore Links */}
-          <div>
-            <h6 className="font-label-md text-label-md text-surface-bright mb-6 uppercase tracking-widest">
-              Explore
-            </h6>
-            <ul className="space-y-4">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Success Stories", href: "/success-stories" },
-                { label: "Programs", href: "/programs" },
-              ].map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-surface-bright transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Link columns — stacked vertically on mobile, individual cols on desktop */}
+          <div className="max-md:flex max-md:flex-col max-md:gap-8 md:contents">
+            {/* Programs Links */}
+            <div className="max-md:text-center flex flex-col max-md:items-center">
+              <h6 className="font-label-md text-label-md text-surface-bright pb-2 border-b border-surface-bright/10 mb-5 md:mb-6 uppercase tracking-widest text-[11px] md:text-label-md w-fit max-md:mx-auto">
+                Programs
+              </h6>
+              <ul className="space-y-1 md:space-y-2.5">
+                {[
+                  "Beginner Foundations",
+                  "Intermediate Masterness",
+                  "Advanced Pro",
+                  "One to One Classes",
+                  "Group Classes",
+                ].map((p) => (
+                  <li key={p}>
+                    <Link
+                      href="/programs"
+                      className="hover:text-surface-bright transition-colors text-[13px] md:text-sm py-2 md:py-1.5 block"
+                    >
+                      {p}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Support Links */}
-          <div>
-            <h6 className="font-label-md text-label-md text-surface-bright mb-6 uppercase tracking-widest">
-              Support
-            </h6>
-            <ul className="space-y-4">
-              {[
-                { label: "Contact Us", href: "/book#help" },
-                { label: "Book Your Free Trial", href: "/book" },
-                { label: "FAQs", href: "/faqs" },
-              ].map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-surface-bright transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Explore Links */}
+            <div className="max-md:text-center flex flex-col max-md:items-center">
+              <h6 className="font-label-md text-label-md text-surface-bright pb-2 border-b border-surface-bright/10 mb-5 md:mb-6 uppercase tracking-widest text-[11px] md:text-label-md w-fit max-md:mx-auto">
+                Explore
+              </h6>
+              <ul className="space-y-1 md:space-y-2.5">
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "About Us", href: "/about" },
+                  { label: "Success Stories", href: "/success-stories" },
+                  { label: "Programs", href: "/programs" },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="hover:text-surface-bright transition-colors text-[13px] md:text-sm py-2 md:py-1.5 block"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Support Links */}
+            <div className="max-md:text-center flex flex-col max-md:items-center">
+              <h6 className="font-label-md text-label-md text-surface-bright pb-2 border-b border-surface-bright/10 mb-5 md:mb-6 uppercase tracking-widest text-[11px] md:text-label-md w-fit max-md:mx-auto">
+                Support
+              </h6>
+              <ul className="space-y-1 md:space-y-2.5">
+                {[
+                  { label: "Contact Us", href: "/book#help" },
+                  { label: "Book Your Free Trial", href: "/book" },
+                  { label: "FAQs", href: "/faqs" },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="hover:text-surface-bright transition-colors text-[13px] md:text-sm py-2 md:py-1.5 block"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-surface-bright/10 text-center text-xs">
+        <div className="pt-6 md:pt-8 border-t border-surface-bright/10 text-center text-[11px] md:text-xs max-md:px-2 text-surface-bright/50">
           <p>© 2026 Prime Square Chess Academy. All rights reserved. Globally Trusted.</p>
         </div>
       </div>

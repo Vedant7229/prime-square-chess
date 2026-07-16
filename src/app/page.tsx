@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -92,55 +94,103 @@ const polaroid1 = "/PS2.jpeg";
 
 const polaroid2 = "/PS1.jpeg";
 export default function Homepage() {
+  const [activeFeatureIndex, setActiveFeatureIndex] = React.useState(0);
+  const featureCarouselRef = React.useRef<HTMLDivElement>(null);
+
+  const [activeStepIndex, setActiveStepIndex] = React.useState(0);
+  const stepCarouselRef = React.useRef<HTMLDivElement>(null);
+
+  const scrollFeature = (direction: "left" | "right") => {
+    const container = featureCarouselRef.current;
+    if (!container) return;
+    const cardWidth = container.clientWidth;
+    if (direction === "left") {
+      container.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: cardWidth, behavior: "smooth" });
+    }
+  };
+
+  const handleFeatureScroll = () => {
+    const container = featureCarouselRef.current;
+    if (!container) return;
+    const scrollLeft = container.scrollLeft;
+    const cardWidth = container.clientWidth;
+    if (cardWidth === 0) return;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveFeatureIndex(index);
+  };
+
+  const scrollStep = (direction: "left" | "right") => {
+    const container = stepCarouselRef.current;
+    if (!container) return;
+    const cardWidth = container.clientWidth;
+    if (direction === "left") {
+      container.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: cardWidth, behavior: "smooth" });
+    }
+  };
+
+  const handleStepScroll = () => {
+    const container = stepCarouselRef.current;
+    if (!container) return;
+    const scrollLeft = container.scrollLeft;
+    const cardWidth = container.clientWidth;
+    if (cardWidth === 0) return;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveStepIndex(index);
+  };
+
   return (
     <main className="flex flex-col">
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden gradient-mesh py-16 md:py-24">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="z-10 flex flex-col items-start text-left">
-            <span className="inline-block bg-secondary/10 text-secondary px-3 py-1 font-label-md text-xs md:text-sm mb-6 tracking-widest uppercase rounded">
+      <section className="relative overflow-hidden gradient-mesh py-12 md:py-24 max-md:px-4">
+        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-16 items-center">
+          <div className="z-10 flex flex-col items-start text-left max-md:items-center max-md:text-center">
+            <span className="inline-block bg-secondary/10 text-secondary px-3 py-1 font-label-md text-xs md:text-sm mb-4 md:mb-6 tracking-widest uppercase rounded">
               Helping Children Think Better Through Chess
             </span>
-            <h1 className="font-display text-4xl md:text-display-lg text-primary mb-6 leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-display-lg text-primary mb-6 leading-tight max-md:text-[32px]">
               Build Strategic Thinkers.
               <br />
               <span className="italic font-normal">Build Confident Children.</span>
             </h1>
-            <p className="font-sans text-base md:text-body-lg text-on-surface-variant mb-8 md:mb-10 max-w-xl leading-relaxed">
+            <p className="font-sans text-sm sm:text-base md:text-body-lg text-on-surface-variant mb-6 md:mb-10 max-w-xl leading-relaxed">
               Designed for children aged{" "}
               <span className="font-semibold text-on-surface">6–18</span>, our
               engaging online chess classes provide a supportive learning
               environment where every student can build strong chess skills,
               confidence, and a love for the game.
             </p>
-            <div className="flex flex-wrap gap-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
                 href="/book"
-                className="w-full sm:w-auto bg-primary text-on-primary font-button text-button px-8 py-4 rounded-lg shadow-sm hover:bg-primary-container active:scale-95 duration-150 transition-all text-center"
+                className="w-full sm:w-auto bg-primary text-on-primary font-button text-button px-8 py-4 rounded-lg shadow-sm hover:bg-primary-container active:scale-95 duration-150 transition-all text-center font-semibold text-base py-4"
               >
                 Book Free Trial
               </Link>
               <Link
                 href="/success-stories"
-                className="w-full sm:w-auto border border-primary text-primary font-button text-button px-8 py-4 rounded-lg hover:bg-primary/5 active:scale-95 duration-150 transition-all text-center"
+                className="w-full sm:w-auto border border-primary text-primary font-button text-button px-8 py-4 rounded-lg hover:bg-primary/5 active:scale-95 duration-150 transition-all text-center font-semibold text-base py-4"
               >
                 Read Success Stories
               </Link>
             </div>
 
             {/* Micro checks */}
-            <div className="mt-12 flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 items-start sm:items-center">
+            <div className="mt-8 md:mt-12 flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 md:gap-8 items-start sm:items-center w-full max-md:justify-center">
               {[
                 "Ages 6–18",
                 "Flexible Time zones",
                 "Live Online classes worldwide",
               ].map((text) => (
-                <div key={text} className="flex items-center gap-2">
+                <div key={text} className="flex items-center gap-2 max-md:mx-auto">
                   <MaterialIcon
                     name="check"
-                    className="text-secondary text-xl font-bold"
+                    className="text-secondary text-lg md:text-xl font-bold"
                   />
-                  <span className="font-label-md text-xs md:text-label-md text-primary uppercase tracking-wider">
+                  <span className="font-label-md text-[10px] sm:text-xs md:text-label-md text-primary uppercase tracking-wider">
                     {text}
                   </span>
                 </div>
@@ -149,7 +199,7 @@ export default function Homepage() {
           </div>
 
           {/* Hero Image & Badge */}
-          <div className="relative w-full">
+          <div className="relative w-full max-md:max-w-md max-md:mx-auto">
             <div className="aspect-[4/5] rounded-xl overflow-hidden relative shadow-lg">
               <Image
                 src={heroImg}
@@ -162,20 +212,20 @@ export default function Homepage() {
               />
             </div>
             {/* Structured Curriculum Badge */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-5 border border-border-warm rounded-xl shadow-lg hidden md:block hover:scale-105 transition-all duration-300">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+            <div className="absolute -bottom-4 left-4 max-md:right-4 max-md:left-4 bg-white p-4 border border-border-warm rounded-xl shadow-lg hover:scale-105 transition-all duration-300 md:-bottom-6 md:-left-6 md:right-auto md:p-5">
+              <div className="flex items-center gap-3 md:gap-4 justify-center md:justify-start">
+                <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <MaterialIcon
                     name="verified"
                     className="text-secondary text-2xl"
                     fill
                   />
                 </div>
-                <div>
-                  <p className="font-label-md text-label-md text-primary">
+                <div className="text-left">
+                  <p className="font-label-md text-xs md:text-label-md text-primary font-bold">
                     Structured Curriculum
                   </p>
-                  <p className="text-xs text-on-surface-variant">
+                  <p className="text-[10px] md:text-xs text-on-surface-variant">
                     FIDE Rated Coaches
                   </p>
                 </div>
@@ -186,27 +236,27 @@ export default function Homepage() {
       </section>
 
       {/* 2. Trust Section (Schools) */}
-      <section className="py-12 bg-surface-white border-y border-border-warm">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <p className="text-center font-label-md text-xs md:text-label-md text-on-surface-variant mb-8 tracking-widest uppercase opacity-75">
+      <section className="py-8 md:py-12 bg-surface-white border-y border-border-warm">
+        <div className="max-w-container-max mx-auto px-6 max-md:px-4 md:px-margin-desktop">
+          <p className="text-center font-label-md text-[10px] md:text-label-md text-on-surface-variant mb-6 md:mb-8 tracking-widest uppercase opacity-75">
             SCHOOLS WE WORK WITH
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-20">
+          <div className="flex flex-row justify-center items-start gap-4 md:gap-20">
             {schoolLogos.map((school) => (
               <div
                 key={school.name}
-                className="flex flex-col items-center gap-3 w-40 md:w-56"
+                className="flex flex-col items-center gap-2 md:gap-3 flex-1 max-w-[110px] md:max-w-none md:w-56"
               >
-                <div className="relative h-16 w-32">
+                <div className="relative h-10 w-20 md:h-16 md:w-32">
                   <Image
                     src={school.src}
                     alt={school.name}
                     fill
                     className="object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                    sizes="150px"
+                    sizes="(max-width: 768px) 80px, 150px"
                   />
                 </div>
-                <span className="text-[10px] md:text-xs font-label-md tracking-wider text-center uppercase text-on-surface-variant/80">
+                <span className="text-[8px] md:text-xs font-label-md tracking-wider text-center uppercase text-on-surface-variant/80 leading-tight">
                   {school.label}
                 </span>
               </div>
@@ -216,90 +266,204 @@ export default function Homepage() {
       </section>
 
       {/* 3. Why Choose Us */}
-      <section className="py-20 md:py-24 bg-surface-bright">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary mb-4">
+      <section className="py-14 md:py-24 bg-surface-bright">
+        <div className="max-w-container-max mx-auto px-6 max-md:px-4 md:px-margin-desktop">
+          <div className="text-center mb-10 md:mb-16 max-w-2xl mx-auto">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-3 md:mb-4">
               Why Parents Choose Prime Square?
             </h2>
-            <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed">
+            <p className="font-sans text-[13px] md:text-base text-on-surface-variant leading-relaxed">
               A complete chess learning experience with personalized coaching,
               expert guidance, and a structured curriculum.
             </p>
           </div>
 
-          {/* Responsive grid mapping cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {features.map((f, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-6 md:p-8 border border-border-warm rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col"
-              >
-                <div className="w-12 h-12 flex items-center justify-center border border-border-warm rounded-lg mb-6 bg-surface-container-low relative">
-                  <Image
-                    src={f.icon}
-                    alt={f.title}
-                    width={28}
-                    height={28}
-                    className="object-contain"
-                  />
+          {/* Slider Wrapper (Mobile Only Arrows overlay, Desktop Grid) */}
+          <div className="relative max-md:px-4">
+            {/* Left Arrow (Mobile Only) */}
+            <button
+              onClick={() => scrollFeature("left")}
+              disabled={activeFeatureIndex === 0}
+              className={`md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/40 backdrop-blur-md border border-border-warm/30 text-primary/70 flex items-center justify-center transition-all ${
+                activeFeatureIndex === 0 ? "opacity-20 pointer-events-none" : "opacity-100 active:scale-90"
+              }`}
+              aria-label="Previous feature"
+            >
+              <MaterialIcon name="chevron_left" className="text-lg" />
+            </button>
+
+            {/* Right Arrow (Mobile Only) */}
+            <button
+              onClick={() => scrollFeature("right")}
+              disabled={activeFeatureIndex === features.length - 1}
+              className={`md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/40 backdrop-blur-md border border-border-warm/30 text-primary/70 flex items-center justify-center transition-all ${
+                activeFeatureIndex === features.length - 1 ? "opacity-20 pointer-events-none" : "opacity-100 active:scale-90"
+              }`}
+              aria-label="Next feature"
+            >
+              <MaterialIcon name="chevron_right" className="text-lg" />
+            </button>
+
+            {/* Snap carousel on mobile (flex-row, overflow-x-auto, w-full, gap-0), grid on desktop */}
+            <div
+              ref={featureCarouselRef}
+              onScroll={handleFeatureScroll}
+              className="max-md:flex max-md:flex-row max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory scrollbar-none max-md:gap-0 max-md:pb-4 md:grid md:grid-cols-2 lg:grid-cols-5 md:gap-6"
+            >
+              {features.map((f, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white p-5 md:p-8 border border-border-warm rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col max-md:snap-center max-md:w-full max-md:flex-shrink-0"
+                >
+                  <div className="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center border border-border-warm rounded-lg mb-4 md:mb-6 bg-surface-container-low relative max-md:mx-auto">
+                    <Image
+                      src={f.icon}
+                      alt={f.title}
+                      width={28}
+                      height={28}
+                      className="object-contain"
+                    />
+                  </div>
+                  <h3 className="font-headline-md text-base md:text-xl text-primary mb-2 md:mb-3 max-md:text-center">
+                    {f.title}
+                  </h3>
+                  <p className="text-[13px] md:text-sm text-on-surface-variant leading-relaxed mt-auto max-md:text-center">
+                    {f.desc}
+                  </p>
                 </div>
-                <h3 className="font-headline-md text-lg md:text-xl text-primary mb-3">
-                  {f.title}
-                </h3>
-                <p className="text-sm text-on-surface-variant leading-relaxed mt-auto">
-                  {f.desc}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Pagination Dots (Mobile Only) */}
+            <div className="flex justify-center gap-2 mt-5 md:hidden">
+              {features.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    const container = featureCarouselRef.current;
+                    if (container) {
+                      const cardWidth = container.clientWidth;
+                      container.scrollTo({ left: idx * cardWidth, behavior: "smooth" });
+                      setActiveFeatureIndex(idx);
+                    }
+                  }}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === activeFeatureIndex ? "w-6 bg-secondary" : "w-2 bg-secondary/30"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* 4. Journey/Timeline Steps */}
-      <section className="bg-white py-20 md:py-24">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary mb-4">
+      <section className="bg-white py-10 md:py-24">
+        <div className="max-w-container-max mx-auto px-6 max-md:px-4 md:px-margin-desktop">
+          <div className="text-center mb-6 md:mb-16">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-2 md:mb-4">
               Your Chess Journey Starts Here
             </h2>
-            <p className="font-sans text-sm md:text-base text-on-surface-variant">
+            <p className="font-sans text-[13px] md:text-base text-on-surface-variant">
               Just four simple steps to get started.
             </p>
           </div>
 
-          <div className="relative">
+          {/* 4-Step Progress Indicator (Mobile Only) */}
+          <div className="flex justify-center items-center gap-3 mb-6 md:hidden">
+            {[1, 2, 3, 4].map((num, i) => (
+              <React.Fragment key={num}>
+                <button
+                  onClick={() => {
+                    const container = stepCarouselRef.current;
+                    if (container) {
+                      const cardWidth = container.clientWidth;
+                      container.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+                      setActiveStepIndex(i);
+                    }
+                  }}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
+                    i === activeStepIndex
+                      ? "bg-primary text-on-primary scale-105 shadow-sm"
+                      : "bg-primary/5 text-primary/30 border border-primary/5"
+                  }`}
+                >
+                  {num}
+                </button>
+                {i < 3 && (
+                  <div
+                    className={`h-[1px] w-6 transition-all duration-300 ${
+                      i < activeStepIndex ? "bg-primary" : "bg-primary/10"
+                    }`}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+
+          <div className="relative max-md:px-4">
+            {/* Left Arrow (Mobile Only) */}
+            <button
+              onClick={() => scrollStep("left")}
+              disabled={activeStepIndex === 0}
+              className={`md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/40 backdrop-blur-md border border-border-warm/30 text-primary/70 flex items-center justify-center transition-all ${
+                activeStepIndex === 0 ? "opacity-20 pointer-events-none" : "opacity-100 active:scale-90"
+              }`}
+              aria-label="Previous step"
+            >
+              <MaterialIcon name="chevron_left" className="text-lg" />
+            </button>
+
+            {/* Right Arrow (Mobile Only) */}
+            <button
+              onClick={() => scrollStep("right")}
+              disabled={activeStepIndex === steps.length - 1}
+              className={`md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/40 backdrop-blur-md border border-border-warm/30 text-primary/70 flex items-center justify-center transition-all ${
+                activeStepIndex === steps.length - 1 ? "opacity-20 pointer-events-none" : "opacity-100 active:scale-90"
+              }`}
+              aria-label="Next step"
+            >
+              <MaterialIcon name="chevron_right" className="text-lg" />
+            </button>
+
             {/* Connecting line on desktop */}
             <div className="hidden lg:block absolute top-[44px] left-12 right-12 h-[1px] bg-border-warm -z-10" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Snap carousel on mobile (flex-row, overflow-x-auto, w-full, gap-0), grid on desktop */}
+            <div
+              ref={stepCarouselRef}
+              onScroll={handleStepScroll}
+              className="max-md:flex max-md:flex-row max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory scrollbar-none max-md:gap-0 max-md:pb-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8"
+            >
               {steps.map((s, idx) => (
-                <div key={idx} className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg mb-6 border-4 border-surface-bright shadow-sm">
+                <div key={idx} className="flex flex-col items-center max-md:snap-center max-md:w-full max-md:flex-shrink-0">
+                  {/* Desktop Timeline Step Circle (hidden on mobile) */}
+                  <div className="hidden md:flex w-12 h-12 rounded-full bg-primary text-on-primary items-center justify-center font-bold text-lg mb-6 border-4 border-surface-bright shadow-sm">
                     {s.step}
                   </div>
-                  <div className="bg-surface-bright border border-border-warm rounded-xl p-6 md:p-8 shadow-sm flex flex-col items-center text-center w-full min-h-[380px] hover:shadow-md transition-all duration-300">
-                    <div className="aspect-video w-full rounded-lg mb-6 bg-surface-container-low relative overflow-hidden">
+                  <div className="bg-surface-bright border border-border-warm rounded-xl p-5 md:p-8 shadow-sm flex flex-col items-center text-center w-full min-h-[320px] md:min-h-[380px] hover:shadow-md transition-all duration-300">
+                    <div className="aspect-video w-full rounded-lg mb-4 md:mb-6 bg-surface-container-low relative overflow-hidden">
                       <Image
                         src={s.src}
                         alt={s.title}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 250px"
+                        sizes="(max-width: 768px) 280px, 250px"
                       />
                     </div>
-                    <h3 className="font-headline-md text-lg md:text-xl text-primary mb-3">
+                    <h3 className="font-headline-md text-base md:text-xl text-primary mb-2 md:mb-3">
                       {s.title}
                     </h3>
-                    <p className="text-xs md:text-sm text-on-surface-variant mb-6 leading-relaxed">
+                    <p className="text-[12px] md:text-sm text-on-surface-variant mb-4 md:mb-6 leading-relaxed">
                       {s.desc}
                     </p>
-                    <div className="mt-auto w-full pt-4 border-t border-border-warm flex items-center justify-center gap-2">
+                    <div className="mt-auto w-full pt-3 md:pt-4 border-t border-border-warm flex items-center justify-center gap-2">
                       <MaterialIcon
                         name={s.icon}
-                        className="text-secondary text-xl"
+                        className="text-secondary text-lg md:text-xl"
                       />
-                      <span className="text-[10px] md:text-xs font-label-md text-on-surface-variant uppercase tracking-wider">
+                      <span className="text-[9px] md:text-xs font-label-md text-on-surface-variant uppercase tracking-wider">
                         {s.badgeText}
                       </span>
                     </div>
@@ -310,16 +474,16 @@ export default function Homepage() {
           </div>
 
           {/* Book trial CTA block */}
-          <div className="mt-16 text-center">
+          <div className="mt-6 md:mt-16 text-center max-md:px-2">
             <Link
               href="/book"
-              className="inline-flex items-center gap-3 bg-primary text-on-primary font-button text-button px-10 py-5 rounded-lg shadow-md hover:scale-[1.03] transition-transform text-center mx-auto"
+              className="max-md:w-full max-md:justify-center inline-flex items-center gap-3 bg-primary text-on-primary font-button text-button px-8 md:px-10 py-4 md:py-5 rounded-lg shadow-md hover:scale-[1.03] active:scale-95 transition-all text-center mx-auto text-sm md:text-base"
             >
-              <MaterialIcon name="calendar_today" className="text-xl" />
+              <MaterialIcon name="calendar_today" className="text-lg md:text-xl" />
               Book Your Free Trial
-              <MaterialIcon name="arrow_forward" className="text-xl" />
+              <MaterialIcon name="arrow_forward" className="text-lg md:text-xl" />
             </Link>
-            <p className="mt-4 text-xs md:text-sm text-on-surface-variant opacity-75">
+            <p className="mt-3 md:mt-4 text-[11px] md:text-sm text-on-surface-variant opacity-75">
               No commitment. Just a conversation that can change your child&apos;s game.
             </p>
           </div>
@@ -328,18 +492,18 @@ export default function Homepage() {
 
       {/* 5. Featured Success Story Spotlight */}
       <section className="bg-white py-12 md:py-20 border-t border-border-warm">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
-            <span className="inline-block text-secondary font-label-md text-xs md:text-sm mb-4 tracking-widest uppercase">
+        <div className="max-w-container-max mx-auto px-6 max-md:px-5 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          <div className="max-md:text-center">
+            <span className="inline-block text-secondary font-label-md text-[11px] md:text-sm mb-3 md:mb-4 tracking-widest uppercase">
               FEATURED SUCCESS STORY
             </span>
-            <h2 className="font-display text-3xl md:text-5xl text-primary mb-6 leading-tight">
+            <h2 className="font-display text-2xl md:text-5xl text-primary mb-4 md:mb-6 leading-tight">
               Real Journeys.
               <br />
               Real Impact.
             </h2>
-            <div className="w-16 h-0.5 bg-secondary mb-8" />
-            <div className="space-y-6 text-on-surface-variant font-sans text-sm md:text-base leading-relaxed mb-8 md:mb-10 max-w-xl">
+            <div className="w-12 md:w-16 h-0.5 bg-secondary mb-6 md:mb-8 max-md:mx-auto" />
+            <div className="space-y-4 md:space-y-6 text-on-surface-variant font-sans text-[13px] md:text-base leading-relaxed mb-6 md:mb-10 max-w-xl max-md:text-left">
               <p>
                 &ldquo;When Prisha joined Prime Square Chess Academy, we never imagined how much she would grow. Over the
                 years, we have seen her become more focused, patient, and
@@ -359,8 +523,8 @@ export default function Homepage() {
             </div>
 
             {/* Profile info */}
-            <div className="flex items-center gap-4 mb-10">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden border border-border-warm flex-shrink-0">
+            <div className="flex items-center gap-3 md:gap-4 mb-8 md:mb-10 max-md:justify-center">
+              <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border border-border-warm flex-shrink-0">
                 <Image
                   src="/AS.png"
                   alt="Archita, Parent of Prisha"
@@ -369,11 +533,11 @@ export default function Homepage() {
                   sizes="64px"
                 />
               </div>
-              <div>
-                <p className="font-headline-md text-base md:text-lg text-primary">
+              <div className="text-left">
+                <p className="font-headline-md text-sm md:text-lg text-primary">
                   Archita, Parent of Prisha Shah (Age 11)
                 </p>
-                <p className="font-label-md text-xs md:text-sm text-on-surface-variant tracking-wider uppercase">
+                <p className="font-label-md text-[10px] md:text-sm text-on-surface-variant tracking-wider uppercase">
                   Gujarat State U-11 Girls Runner Up
                 </p>
               </div>
@@ -381,7 +545,7 @@ export default function Homepage() {
 
             <Link
               href="/success-stories"
-              className="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg hover:bg-primary-container transition-all font-label-md text-sm active:scale-95 duration-150"
+              className="max-md:w-full max-md:justify-center inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3.5 md:py-3 rounded-lg hover:bg-primary-container transition-all font-label-md text-sm active:scale-95 duration-150"
             >
               More Success Stories
               <MaterialIcon name="arrow_right_alt" className="text-xl" />
@@ -389,35 +553,35 @@ export default function Homepage() {
           </div>
 
           {/* Double Polaroid Stack */}
-          <div className="relative h-[480px] sm:h-[600px] w-full flex items-center justify-center">
+          <div className="relative h-[380px] sm:h-[480px] md:h-[600px] w-full flex items-center justify-center">
             {/* Polaroid 1 (Trophy Card) - top right */}
-            <div className="absolute top-0 right-4 w-4/5 sm:w-2/3 bg-white p-4 pb-8 rounded shadow-lg border border-border-warm rotate-2 hover:rotate-0 hover:z-30 transition-all duration-300">
-              <div className="aspect-video relative overflow-hidden rounded bg-surface-container-low mb-4">
+            <div className="absolute top-0 right-2 md:right-4 w-[75%] sm:w-2/3 bg-white p-3 pb-6 md:p-4 md:pb-8 rounded shadow-lg border border-border-warm rotate-2 hover:rotate-0 hover:z-30 transition-all duration-300">
+              <div className="aspect-video relative overflow-hidden rounded bg-surface-container-low mb-3 md:mb-4">
                 <Image
                   src={polaroid1}
                   alt="Celebrating chess hard work"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  sizes="(max-width: 768px) 75vw, 400px"
                 />
               </div>
-              <p className="text-center font-label-md text-xs md:text-sm text-primary uppercase tracking-widest">
+              <p className="text-center font-label-md text-[10px] md:text-sm text-primary uppercase tracking-widest">
                 Proud Moment
               </p>
             </div>
 
             {/* Polaroid 2 (Prisha with Trophies) - bottom left */}
-            <div className="absolute bottom-4 left-4 w-4/5 sm:w-2/3 bg-white p-4 pb-8 rounded shadow-xl border border-border-warm -rotate-2 z-20 hover:rotate-0 hover:z-30 transition-all duration-300">
-              <div className="aspect-video relative overflow-hidden rounded bg-surface-container-low mb-4">
+            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 w-[75%] sm:w-2/3 bg-white p-3 pb-6 md:p-4 md:pb-8 rounded shadow-xl border border-border-warm -rotate-2 z-20 hover:rotate-0 hover:z-30 transition-all duration-300">
+              <div className="aspect-video relative overflow-hidden rounded bg-surface-container-low mb-3 md:mb-4">
                 <Image
                   src={polaroid2}
                   alt="Prisha Shah with chess trophies"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  sizes="(max-width: 768px) 75vw, 400px"
                 />
               </div>
-              <p className="text-center font-label-md text-xs md:text-sm text-primary uppercase tracking-widest">
+              <p className="text-center font-label-md text-[10px] md:text-sm text-primary uppercase tracking-widest">
                 Champion Today, Leader Tomorrow
               </p>
             </div>
@@ -426,7 +590,7 @@ export default function Homepage() {
       </section>
 
       {/* 6. Final CTA Banner */}
-      <section className="py-20 md:py-24 bg-cta-deep-green text-surface-bright relative overflow-hidden">
+      <section className="py-14 md:py-24 bg-cta-deep-green text-surface-bright relative overflow-hidden">
         {/* Pattern overlay */}
         <div
           className="absolute inset-0 opacity-5 pointer-events-none"
@@ -434,18 +598,18 @@ export default function Homepage() {
             backgroundImage: `url("https://www.transparenttextures.com/patterns/linen.png")`,
           }}
         />
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop text-center relative z-10">
-          <h2 className="font-display text-3xl md:text-5xl mb-6 max-w-3xl mx-auto leading-tight">
-            Help Your Child Discover Their <br /> Potential Through Chess.
+        <div className="max-w-container-max mx-auto px-6 max-md:px-5 md:px-margin-desktop text-center relative z-10">
+          <h2 className="font-display text-2xl md:text-5xl mb-4 md:mb-6 max-w-3xl mx-auto leading-tight">
+            Help Your Child Discover Their <br className="hidden md:block" /> Potential Through Chess.
           </h2>
-          <p className="font-sans text-sm md:text-body-lg mb-10 text-white/95 leading-relaxed">
+          <p className="font-sans text-[13px] md:text-body-lg mb-8 md:mb-10 text-white/95 leading-relaxed max-md:max-w-sm max-md:mx-auto">
             Experience a personalized trial lesson with experienced tournament
-            players. <br /> Discover how structured coaching helps children improve with
+            players. <br className="hidden md:block" /> Discover how structured coaching helps children improve with
             confidence.
           </p>
           <Link
             href="/book"
-            className="inline-block bg-surface-bright text-primary font-button text-button px-10 py-5 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-lg font-bold text-center"
+            className="max-md:w-full max-md:block inline-block bg-surface-bright text-primary font-button text-button px-8 md:px-10 py-4 md:py-5 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-lg font-bold text-center text-sm md:text-base"
           >
             Book Your Free Trial
           </Link>
