@@ -99,26 +99,29 @@ const polaroid2 = "/PS1.jpeg";
 export default function Homepage() {
   return (
     <main className="flex flex-col">
-      {/* 1. Hero Section */} 
       <section className="relative overflow-hidden gradient-mesh py-16 md:py-24">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="z-10 flex flex-col items-start text-left">
-            <span className="inline-block bg-secondary/10 text-secondary px-3 py-1 font-label-md text-xs md:text-sm mb-6 tracking-widest uppercase rounded">
+        <div className="max-w-container-max mx-auto px-8 xs:px-10 sm:px-12 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
+            <span className="inline-block bg-secondary/10 text-secondary px-4 py-2 font-label-md text-[10px] sm:text-xs md:text-sm mb-6 tracking-widest uppercase rounded mx-auto lg:mx-0">
               Helping Children Think Better Through Chess
             </span>
-            <h1 className="font-display text-4xl md:text-display-lg text-primary mb-6 leading-tight">
-              Build Strategic Thinkers.
+            <h1 className="font-display text-[28px] xs:text-3xl sm:text-4xl lg:text-display-lg text-primary mb-6 leading-tight max-w-sm sm:max-w-md lg:max-w-none mx-auto lg:mx-0">
+              Build Strategic
+              <br className="sm:hidden" /> Thinkers.
               <br />
-              <span className="italic font-normal">Build Confident Children.</span>
+              <span className="italic font-normal">
+                Build Confident
+                <br className="sm:hidden" /> Children.
+              </span>
             </h1>
-            <p className="font-sans text-base md:text-body-lg text-on-surface-variant mb-8 md:mb-10 max-w-xl leading-relaxed">
+            <p className="font-sans text-sm sm:text-base lg:text-body-lg text-on-surface-variant mb-8 md:mb-10 max-w-xs sm:max-w-xl leading-relaxed mx-auto lg:mx-0">
               Designed for children aged{" "}
               <span className="font-semibold text-on-surface">6–18</span>, our
               engaging online chess classes provide a supportive learning
               environment where every student can build strong chess skills,
               confidence, and a love for the game.
             </p>
-            <div className="flex flex-wrap gap-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[280px] xs:max-w-[312px] sm:max-w-none mx-auto lg:mx-0">
               <Link
                 href="/book"
                 className="w-full sm:w-auto bg-primary text-on-primary font-button text-button px-8 py-4 rounded-lg shadow-sm hover:bg-primary-container active:scale-95 duration-150 transition-all text-center"
@@ -134,18 +137,18 @@ export default function Homepage() {
             </div>
 
             {/* Micro checks */}
-            <div className="mt-12 flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 items-start sm:items-center">
+            <div className="mt-12 flex flex-col lg:flex-row gap-5 lg:gap-8 items-center lg:items-start w-full">
               {[
-                "Ages 6–18",
-                "Flexible Time zones",
-                "Live Online classes worldwide",
+                "Ages 6-18",
+                "Flexible Time Zones",
+                "Live Online Classes Worldwide",
               ].map((text) => (
-                <div key={text} className="flex items-center gap-2">
+                <div key={text} className="flex items-center justify-center lg:justify-start gap-2 w-full lg:w-auto">
                   <MaterialIcon
                     name="check"
-                    className="text-secondary text-xl font-bold"
+                    className="text-secondary text-lg md:text-xl font-bold"
                   />
-                  <span className="font-label-md text-xs md:text-label-md text-primary uppercase tracking-wider">
+                  <span className="font-label-md text-xs sm:text-xs md:text-label-md text-primary uppercase tracking-wider">
                     {text}
                   </span>
                 </div>
