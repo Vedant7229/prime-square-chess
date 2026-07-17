@@ -157,8 +157,8 @@ export default function Homepage() {
           </div>
 
           {/* Hero Image & Badge */}
-          <div className="relative w-full">
-            <div className="aspect-[4/5] rounded-xl overflow-hidden relative shadow-lg">
+          <div className="relative w-full max-w-[270px] xs:max-w-[300px] sm:max-w-[340px] lg:max-w-none mx-auto mt-10 lg:mt-0">
+            <div className="aspect-[4/5] rounded-[32px] overflow-hidden relative shadow-lg border border-border-warm">
               <Image
                 src={heroImg}
                 alt="Child playing chess online"
@@ -170,20 +170,20 @@ export default function Homepage() {
               />
             </div>
             {/* Structured Curriculum Badge */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-5 border border-border-warm rounded-xl shadow-lg hidden md:block hover:scale-105 transition-all duration-300">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 lg:left-[-24px] lg:translate-x-0 z-20 w-[90%] sm:w-auto max-w-[280px] sm:max-w-none">
+              <div className="bg-white p-4 sm:p-5 border border-border-warm rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-4 animate-float">
+                <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0 animate-badge-pulse">
                   <MaterialIcon
                     name="verified"
                     className="text-secondary text-2xl"
                     fill
                   />
                 </div>
-                <div>
-                  <p className="font-label-md text-label-md text-primary">
+                <div className="text-left">
+                  <p className="font-label-md text-sm sm:text-label-md text-primary font-bold leading-tight">
                     Structured Curriculum
                   </p>
-                  <p className="text-xs text-on-surface-variant">
+                  <p className="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">
                     FIDE Rated Coaches
                   </p>
                 </div>
@@ -194,27 +194,27 @@ export default function Homepage() {
       </section>
 
       {/* 2. Trust Section (Schools) */}
-      <section className="py-12 bg-surface-white border-y border-border-warm">
+      <section className="py-8 md:py-12 bg-surface-white border-y border-border-warm">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <p className="text-center font-label-md text-xs md:text-label-md text-on-surface-variant mb-8 tracking-widest uppercase opacity-75">
+          <p className="text-center font-label-md text-[10px] sm:text-xs md:text-label-md text-on-surface-variant mb-6 md:mb-8 tracking-widest uppercase opacity-75">
             SCHOOLS WE WORK WITH
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-20">
+          <div className="grid grid-cols-3 gap-4 max-w-[340px] xs:max-w-md mx-auto md:flex md:flex-wrap md:justify-center md:items-start md:gap-20 md:max-w-none">
             {schoolLogos.map((school) => (
               <div
                 key={school.name}
-                className="flex flex-col items-center gap-3 w-40 md:w-56"
+                className="flex flex-col items-center gap-3 w-full md:w-56"
               >
-                <div className="relative h-16 w-32">
+                <div className="relative h-12 w-12 xs:h-14 xs:w-14 sm:h-16 sm:w-28 md:w-32">
                   <Image
                     src={school.src}
                     alt={school.name}
                     fill
                     className="object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                    sizes="150px"
+                    sizes="(max-width: 768px) 60px, 150px"
                   />
                 </div>
-                <span className="text-[10px] md:text-xs font-label-md tracking-wider text-center uppercase text-on-surface-variant/80">
+                <span className="text-[8px] xs:text-[9px] sm:text-xs font-label-md tracking-wider text-center uppercase text-on-surface-variant/80 leading-normal max-w-[90px] md:max-w-none">
                   {school.label}
                 </span>
               </div>
