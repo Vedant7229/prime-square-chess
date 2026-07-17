@@ -99,7 +99,7 @@ const polaroid2 = "/PS1.jpeg";
 export default function Homepage() {
   return (
     <main className="flex flex-col">
-      <section className="relative overflow-hidden gradient-mesh py-16 md:py-24">
+      <section className="relative overflow-hidden gradient-mesh pt-8 pb-12 md:py-24">
         <div className="max-w-container-max mx-auto px-8 xs:px-10 sm:px-12 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
             <span className="inline-block bg-secondary/10 text-secondary px-4 py-2 font-label-md text-[10px] sm:text-xs md:text-sm mb-6 tracking-widest uppercase rounded mx-auto lg:mx-0">
@@ -137,7 +137,7 @@ export default function Homepage() {
             </div>
 
             {/* Micro checks */}
-            <div className="mt-12 flex flex-col lg:flex-row gap-5 lg:gap-8 items-center lg:items-start w-full">
+            <div className="mt-8 lg:mt-12 flex flex-col lg:flex-row gap-5 lg:gap-8 items-center lg:items-start w-full">
               {[
                 "Ages 6-18",
                 "Flexible Time Zones",
