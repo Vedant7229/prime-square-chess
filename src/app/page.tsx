@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MaterialIcon from "@/components/MaterialIcon";
@@ -97,6 +99,41 @@ const polaroid1 = "/PS2.jpeg";
 
 const polaroid2 = "/PS1.jpeg";
 export default function Homepage() {
+  const [activeFeatureIdx, setActiveFeatureIdx] = useState(0);
+  const featureCarouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollFeatureLeft = () => {
+    if (!featureCarouselRef.current) return;
+    const container = featureCarouselRef.current;
+    const width = container.clientWidth;
+    container.scrollBy({ left: -width, behavior: "smooth" });
+  };
+
+  const scrollFeatureRight = () => {
+    if (!featureCarouselRef.current) return;
+    const container = featureCarouselRef.current;
+    const width = container.clientWidth;
+    container.scrollBy({ left: width, behavior: "smooth" });
+  };
+
+  const scrollToFeatureIdx = (idx: number) => {
+    if (!featureCarouselRef.current) return;
+    const container = featureCarouselRef.current;
+    const width = container.clientWidth;
+    container.scrollTo({ left: idx * width, behavior: "smooth" });
+  };
+
+  const handleFeatureScroll = () => {
+    if (!featureCarouselRef.current) return;
+    const container = featureCarouselRef.current;
+    const scrollPosition = container.scrollLeft;
+    const width = container.clientWidth;
+    if (width > 0) {
+      const index = Math.round(scrollPosition / width);
+      setActiveFeatureIdx(index);
+    }
+  };
+
   return (
     <main className="flex flex-col">
       <section className="relative overflow-hidden gradient-mesh pt-8 pb-12 md:py-24">
@@ -236,8 +273,77 @@ export default function Homepage() {
             </p>
           </div>
 
-          {/* Responsive grid mapping cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {/* Mobile Swipe Carousel */}
+          <div className="relative block sm:hidden px-8">
+            {/* Left Overlapping Arrow */}
+            {activeFeatureIdx > 0 && (
+              <button
+                onClick={scrollFeatureLeft}
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-border-warm rounded-full shadow flex items-center justify-center z-10 active:scale-95 duration-100 cursor-pointer"
+                aria-label="Previous feature"
+              >
+                <MaterialIcon name="chevron_left" className="text-primary text-xl font-bold" />
+              </button>
+            )}
+
+            {/* Carousel Container */}
+            <div
+              ref={featureCarouselRef}
+              onScroll={handleFeatureScroll}
+              className="snap-carousel w-full gap-4 pb-2"
+            >
+              {features.map((f, idx) => (
+                <div
+                  key={idx}
+                  className="w-full flex-shrink-0 snap-carousel-item bg-white p-6 border border-border-warm rounded-xl shadow-sm flex flex-col min-h-[220px]"
+                >
+                  <div className="w-12 h-12 flex items-center justify-center border border-border-warm rounded-lg mb-4 bg-surface-container-low relative">
+                    <Image
+                      src={f.icon}
+                      alt={f.title}
+                      width={28}
+                      height={28}
+                      className="object-contain"
+                    />
+                  </div>
+                  <h3 className="font-headline-md text-lg text-primary mb-2">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm text-on-surface-variant leading-relaxed">
+                    {f.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Overlapping Arrow */}
+            {activeFeatureIdx < features.length - 1 && (
+              <button
+                onClick={scrollFeatureRight}
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-border-warm rounded-full shadow flex items-center justify-center z-10 active:scale-95 duration-100 cursor-pointer"
+                aria-label="Next feature"
+              >
+                <MaterialIcon name="chevron_right" className="text-primary text-xl font-bold" />
+              </button>
+            )}
+
+            {/* Dots Pagination */}
+            <div className="flex justify-center gap-2 mt-4">
+              {features.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => scrollToFeatureIdx(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    activeFeatureIdx === idx ? "bg-secondary w-5" : "bg-border-warm w-2"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop/Tablet Grid */}
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {features.map((f, idx) => (
               <div
                 key={idx}
