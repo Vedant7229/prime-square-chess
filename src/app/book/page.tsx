@@ -76,7 +76,7 @@ export default function BookPage() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
               className="w-full sm:w-auto px-8 py-3 rounded-lg border border-border-warm font-button text-sm text-primary hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2"
-              href="https://wa.me/918980635996"
+              href="https://api.whatsapp.com/send/?phone=918980635996&text=Hi%21+I+am+interested+in+chess+classes.&type=phone_number&app_absent=0"
               target="_blank"
               rel="noopener noreferrer"
             >
