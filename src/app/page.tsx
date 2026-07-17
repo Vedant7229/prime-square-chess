@@ -309,7 +309,7 @@ export default function Homepage() {
           </div>
 
           {/* Mobile Swipe Carousel */}
-          <div className="relative block sm:hidden px-8">
+          <div className="relative block sm:hidden px-4">
             {/* Left Overlapping Arrow */}
             {activeFeatureIdx > 0 && (
               <button
@@ -419,8 +419,7 @@ export default function Homepage() {
 
           <div className="relative">
             {/* Mobile Swipe Carousel */}
-            {/* Mobile Swipe Carousel */}
-            <div className="relative block sm:hidden px-8">
+            <div className="relative block sm:hidden px-4">
               {/* Connected Number Line */}
               <div className="relative w-full max-w-[240px] mx-auto mb-8 flex justify-between items-center">
                 {/* Connecting Line */}
