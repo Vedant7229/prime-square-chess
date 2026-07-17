@@ -83,14 +83,14 @@ const steps = [
     icon: "route",
     badgeText: "Clear Guidance for Your Child",
     src: homepg3,
-    },
+  },
   {
     step: "4",
     title: "Join Live Classes",
     desc: "Start weekly live classes, track regular progress, and achieve remarkable results.",
     icon: "monitoring",
     badgeText: "Track progress, Achieve Success",
-    src: homepg4,  
+    src: homepg4,
   },
 ];
 
@@ -368,9 +368,8 @@ export default function Homepage() {
                 <button
                   key={idx}
                   onClick={() => scrollToFeatureIdx(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeFeatureIdx === idx ? "bg-secondary w-5" : "bg-border-warm w-2"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${activeFeatureIdx === idx ? "bg-secondary w-5" : "bg-border-warm w-2"
+                    }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
@@ -424,18 +423,17 @@ export default function Homepage() {
               <div className="relative w-full max-w-[240px] mx-auto mb-8 flex justify-between items-center">
                 {/* Connecting Line */}
                 <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-[2px] bg-border-warm z-0" />
-                
+
                 {steps.map((s, idx) => {
                   const isActive = activeStepIdx === idx;
                   return (
                     <button
                       key={idx}
                       onClick={() => scrollToStepIdx(idx)}
-                      className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 cursor-pointer ${
-                        isActive
+                      className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 cursor-pointer ${isActive
                           ? "bg-secondary border-secondary text-white shadow-sm"
                           : "bg-white border-border-warm text-on-surface-variant"
-                      }`}
+                        }`}
                     >
                       {s.step}
                     </button>
@@ -571,15 +569,15 @@ export default function Homepage() {
       <section className="bg-white py-12 md:py-20 border-t border-border-warm">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
-            <span className="inline-block text-secondary font-label-md text-xs md:text-sm mb-4 tracking-widest uppercase">
+            <span className="text-secondary font-label-md text-xs md:text-sm mb-4 tracking-widest uppercase block text-center lg:inline-block lg:text-left">
               FEATURED SUCCESS STORY
             </span>
-            <h2 className="font-display text-3xl md:text-5xl text-primary mb-6 leading-tight">
+            <h2 className="font-display text-3xl md:text-5xl text-primary mb-6 leading-tight text-center lg:text-left">
               Real Journeys.
               <br />
               Real Impact.
             </h2>
-            <div className="w-16 h-0.5 bg-secondary mb-8" />
+            <div className="w-16 h-0.5 bg-secondary mb-8 mx-auto lg:mx-0" />
             <div className="space-y-6 text-on-surface-variant font-sans text-sm md:text-base leading-relaxed mb-8 md:mb-10 max-w-xl">
               <p>
                 &ldquo;When Prisha joined Prime Square Chess Academy, we never imagined how much she would grow. Over the
@@ -611,10 +609,10 @@ export default function Homepage() {
                 />
               </div>
               <div>
-                <p className="font-headline-md text-sm sm:text-base md:text-lg text-primary font-bold">
+                <p className="font-headline-md text-sm sm:text-base md:text-lg text-primary font-bold text-left">
                   Archita, Parent of Prisha Shah (Age 11)
                 </p>
-                <p className="font-label-md text-[10px] sm:text-xs md:text-sm text-on-surface-variant tracking-wider uppercase mt-1">
+                <p className="font-label-md text-[10px] sm:text-xs md:text-sm text-on-surface-variant tracking-wider uppercase mt-1 text-left">
                   Gujarat State U-11 Girls Runner Up
                 </p>
               </div>
@@ -622,7 +620,7 @@ export default function Homepage() {
 
             <Link
               href="/success-stories"
-              className="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg hover:bg-primary-container transition-all font-label-md text-sm active:scale-95 duration-150"
+              className="flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg hover:bg-primary-container transition-all font-label-md text-sm active:scale-95 duration-150 w-full lg:w-auto lg:inline-flex"
             >
               More Success Stories
               <MaterialIcon name="arrow_right_alt" className="text-xl" />
