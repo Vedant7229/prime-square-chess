@@ -600,21 +600,21 @@ export default function Homepage() {
             </div>
 
             {/* Profile info */}
-            <div className="flex items-center gap-4 mb-10">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden border border-border-warm flex-shrink-0">
+            <div className="flex items-center gap-3 sm:gap-4 mb-10">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border border-border-warm flex-shrink-0">
                 <Image
                   src="/AS.png"
                   alt="Archita, Parent of Prisha"
                   fill
                   className="object-cover"
-                  sizes="64px"
+                  sizes="(max-width: 640px) 56px, 64px"
                 />
               </div>
               <div>
-                <p className="font-headline-md text-base md:text-lg text-primary">
+                <p className="font-headline-md text-sm sm:text-base md:text-lg text-primary font-bold">
                   Archita, Parent of Prisha Shah (Age 11)
                 </p>
-                <p className="font-label-md text-xs md:text-sm text-on-surface-variant tracking-wider uppercase">
+                <p className="font-label-md text-[10px] sm:text-xs md:text-sm text-on-surface-variant tracking-wider uppercase mt-1">
                   Gujarat State U-11 Girls Runner Up
                 </p>
               </div>
@@ -630,9 +630,9 @@ export default function Homepage() {
           </div>
 
           {/* Double Polaroid Stack */}
-          <div className="relative h-[480px] sm:h-[600px] w-full flex items-center justify-center">
+          <div className="relative h-[380px] xs:h-[420px] sm:h-[600px] w-full flex items-center justify-center mt-8 lg:mt-0">
             {/* Polaroid 1 (Trophy Card) - top right */}
-            <div className="absolute top-0 right-4 w-4/5 sm:w-2/3 bg-white p-4 pb-8 rounded shadow-lg border border-border-warm rotate-2 hover:rotate-0 hover:z-30 transition-all duration-300">
+            <div className="absolute top-0 right-2 w-[78%] sm:w-2/3 bg-white p-3 pb-6 md:p-4 md:pb-8 rounded shadow-lg border border-border-warm rotate-2 hover:rotate-0 hover:z-30 transition-all duration-300">
               <div className="aspect-video relative overflow-hidden rounded bg-surface-container-low mb-4">
                 <Image
                   src={polaroid1}
@@ -642,13 +642,13 @@ export default function Homepage() {
                   sizes="(max-width: 768px) 100vw, 400px"
                 />
               </div>
-              <p className="text-center font-label-md text-xs md:text-sm text-primary uppercase tracking-widest">
+              <p className="text-center font-label-md text-[10px] sm:text-xs md:text-sm text-primary uppercase tracking-widest">
                 Proud Moment
               </p>
             </div>
 
             {/* Polaroid 2 (Prisha with Trophies) - bottom left */}
-            <div className="absolute bottom-4 left-4 w-4/5 sm:w-2/3 bg-white p-4 pb-8 rounded shadow-xl border border-border-warm -rotate-2 z-20 hover:rotate-0 hover:z-30 transition-all duration-300">
+            <div className="absolute bottom-2 left-2 w-[78%] sm:w-2/3 bg-white p-3 pb-6 md:p-4 md:pb-8 rounded shadow-xl border border-border-warm -rotate-2 z-20 hover:rotate-0 hover:z-30 transition-all duration-300">
               <div className="aspect-video relative overflow-hidden rounded bg-surface-container-low mb-4">
                 <Image
                   src={polaroid2}
@@ -658,7 +658,7 @@ export default function Homepage() {
                   sizes="(max-width: 768px) 100vw, 400px"
                 />
               </div>
-              <p className="text-center font-label-md text-xs md:text-sm text-primary uppercase tracking-widest">
+              <p className="text-center font-label-md text-[10px] sm:text-xs md:text-sm text-primary uppercase tracking-widest">
                 Champion Today, Leader Tomorrow
               </p>
             </div>
