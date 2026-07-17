@@ -170,20 +170,20 @@ export default function Homepage() {
               />
             </div>
             {/* Structured Curriculum Badge */}
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 lg:left-[-24px] lg:translate-x-0 z-20 w-[90%] sm:w-auto max-w-[280px] sm:max-w-none">
-              <div className="bg-white p-4 sm:p-5 border border-border-warm rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-4 animate-float">
-                <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0 animate-badge-pulse">
+            <div className="absolute -bottom-6 left-[-8px] sm:left-[-16px] lg:left-[-24px] z-20 w-auto">
+              <div className="bg-white p-2.5 sm:p-5 border border-border-warm rounded-xl sm:rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2.5 sm:gap-4 animate-float">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0 animate-badge-pulse">
                   <MaterialIcon
                     name="verified"
-                    className="text-secondary text-2xl"
+                    className="text-secondary text-lg sm:text-2xl"
                     fill
                   />
                 </div>
                 <div className="text-left">
-                  <p className="font-label-md text-sm sm:text-label-md text-primary font-bold leading-tight">
+                  <p className="font-label-md text-xs sm:text-label-md text-primary font-bold leading-tight">
                     Structured Curriculum
                   </p>
-                  <p className="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">
+                  <p className="text-[9px] sm:text-xs text-on-surface-variant mt-0.5">
                     FIDE Rated Coaches
                   </p>
                 </div>
