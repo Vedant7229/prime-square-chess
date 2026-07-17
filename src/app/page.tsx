@@ -431,8 +431,8 @@ export default function Homepage() {
                       key={idx}
                       onClick={() => scrollToStepIdx(idx)}
                       className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 cursor-pointer ${isActive
-                          ? "bg-secondary border-secondary text-white shadow-sm"
-                          : "bg-white border-border-warm text-on-surface-variant"
+                        ? "bg-secondary border-secondary text-white shadow-sm"
+                        : "bg-white border-border-warm text-on-surface-variant"
                         }`}
                     >
                       {s.step}
@@ -610,7 +610,7 @@ export default function Homepage() {
               </div>
               <div>
                 <p className="font-headline-md text-sm sm:text-base md:text-lg text-primary font-bold text-left">
-                  Archita, Parent of Prisha Shah (Age 11)
+                  Archita Shah, <br /> Parent of Prisha Shah (Age 11)
                 </p>
                 <p className="font-label-md text-[10px] sm:text-xs md:text-sm text-on-surface-variant tracking-wider uppercase mt-1 text-left">
                   Gujarat State U-11 Girls Runner Up
