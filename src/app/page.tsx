@@ -134,6 +134,41 @@ export default function Homepage() {
     }
   };
 
+  const [activeStepIdx, setActiveStepIdx] = useState(0);
+  const stepCarouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollStepLeft = () => {
+    if (!stepCarouselRef.current) return;
+    const container = stepCarouselRef.current;
+    const width = container.clientWidth;
+    container.scrollBy({ left: -width, behavior: "smooth" });
+  };
+
+  const scrollStepRight = () => {
+    if (!stepCarouselRef.current) return;
+    const container = stepCarouselRef.current;
+    const width = container.clientWidth;
+    container.scrollBy({ left: width, behavior: "smooth" });
+  };
+
+  const scrollToStepIdx = (idx: number) => {
+    if (!stepCarouselRef.current) return;
+    const container = stepCarouselRef.current;
+    const width = container.clientWidth;
+    container.scrollTo({ left: idx * width, behavior: "smooth" });
+  };
+
+  const handleStepScroll = () => {
+    if (!stepCarouselRef.current) return;
+    const container = stepCarouselRef.current;
+    const scrollPosition = container.scrollLeft;
+    const width = container.clientWidth;
+    if (width > 0) {
+      const index = Math.round(scrollPosition / width);
+      setActiveStepIdx(index);
+    }
+  };
+
   return (
     <main className="flex flex-col">
       <section className="relative overflow-hidden gradient-mesh pt-8 pb-12 md:py-24">
@@ -383,43 +418,136 @@ export default function Homepage() {
           </div>
 
           <div className="relative">
-            {/* Connecting line on desktop */}
-            <div className="hidden lg:block absolute top-[44px] left-12 right-12 h-[1px] bg-border-warm -z-10" />
+            {/* Mobile Swipe Carousel */}
+            {/* Mobile Swipe Carousel */}
+            <div className="relative block sm:hidden px-8">
+              {/* Connected Number Line */}
+              <div className="relative w-full max-w-[240px] mx-auto mb-8 flex justify-between items-center">
+                {/* Connecting Line */}
+                <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-[2px] bg-border-warm z-0" />
+                
+                {steps.map((s, idx) => {
+                  const isActive = activeStepIdx === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => scrollToStepIdx(idx)}
+                      className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 cursor-pointer ${
+                        isActive
+                          ? "bg-secondary border-secondary text-white shadow-sm"
+                          : "bg-white border-border-warm text-on-surface-variant"
+                      }`}
+                    >
+                      {s.step}
+                    </button>
+                  );
+                })}
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {steps.map((s, idx) => (
-                <div key={idx} className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg mb-6 border-4 border-surface-bright shadow-sm">
-                    {s.step}
-                  </div>
-                  <div className="bg-surface-bright border border-border-warm rounded-xl p-6 md:p-8 shadow-sm flex flex-col items-center text-center w-full min-h-[380px] hover:shadow-md transition-all duration-300">
-                    <div className="aspect-video w-full rounded-lg mb-6 bg-surface-container-low relative overflow-hidden">
-                      <Image
-                        src={s.src}
-                        alt={s.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 250px"
-                      />
+              {/* Left Overlapping Arrow */}
+              {activeStepIdx > 0 && (
+                <button
+                  onClick={scrollStepLeft}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-border-warm rounded-full shadow flex items-center justify-center z-10 active:scale-95 duration-100 cursor-pointer"
+                  aria-label="Previous step"
+                >
+                  <MaterialIcon name="chevron_left" className="text-primary text-xl font-bold" />
+                </button>
+              )}
+
+              {/* Carousel Container */}
+              <div
+                ref={stepCarouselRef}
+                onScroll={handleStepScroll}
+                className="snap-carousel w-full gap-4 pb-2"
+              >
+                {steps.map((s, idx) => (
+                  <div
+                    key={idx}
+                    className="w-full flex-shrink-0 snap-carousel-item flex flex-col items-center"
+                  >
+                    <div className="bg-surface-bright border border-border-warm rounded-xl p-6 shadow-sm flex flex-col items-center text-center w-full min-h-[350px]">
+                      <div className="aspect-video w-full rounded-lg mb-6 bg-surface-container-low relative overflow-hidden">
+                        <Image
+                          src={s.src}
+                          alt={s.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 250px"
+                        />
+                      </div>
+                      <h3 className="font-headline-md text-lg text-primary mb-3">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs text-on-surface-variant mb-6 leading-relaxed">
+                        {s.desc}
+                      </p>
+                      <div className="mt-auto w-full pt-4 border-t border-border-warm flex items-center justify-center gap-2">
+                        <MaterialIcon
+                          name={s.icon}
+                          className="text-secondary text-xl"
+                        />
+                        <span className="text-[10px] font-label-md text-on-surface-variant uppercase tracking-wider">
+                          {s.badgeText}
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="font-headline-md text-lg md:text-xl text-primary mb-3">
-                      {s.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-on-surface-variant mb-6 leading-relaxed">
-                      {s.desc}
-                    </p>
-                    <div className="mt-auto w-full pt-4 border-t border-border-warm flex items-center justify-center gap-2">
-                      <MaterialIcon
-                        name={s.icon}
-                        className="text-secondary text-xl"
-                      />
-                      <span className="text-[10px] md:text-xs font-label-md text-on-surface-variant uppercase tracking-wider">
-                        {s.badgeText}
-                      </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Overlapping Arrow */}
+              {activeStepIdx < steps.length - 1 && (
+                <button
+                  onClick={scrollStepRight}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-border-warm rounded-full shadow flex items-center justify-center z-10 active:scale-95 duration-100 cursor-pointer"
+                  aria-label="Next step"
+                >
+                  <MaterialIcon name="chevron_right" className="text-primary text-xl font-bold" />
+                </button>
+              )}
+            </div>
+
+            {/* Desktop/Tablet Grid */}
+            <div className="hidden sm:block">
+              {/* Connecting line on desktop */}
+              <div className="hidden lg:block absolute top-[44px] left-12 right-12 h-[1px] bg-border-warm -z-10" />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {steps.map((s, idx) => (
+                  <div key={idx} className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg mb-6 border-4 border-surface-bright shadow-sm">
+                      {s.step}
+                    </div>
+                    <div className="bg-surface-bright border border-border-warm rounded-xl p-6 md:p-8 shadow-sm flex flex-col items-center text-center w-full min-h-[380px] hover:shadow-md transition-all duration-300">
+                      <div className="aspect-video w-full rounded-lg mb-6 bg-surface-container-low relative overflow-hidden">
+                        <Image
+                          src={s.src}
+                          alt={s.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 250px"
+                        />
+                      </div>
+                      <h3 className="font-headline-md text-lg md:text-xl text-primary mb-3">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs md:text-sm text-on-surface-variant mb-6 leading-relaxed">
+                        {s.desc}
+                      </p>
+                      <div className="mt-auto w-full pt-4 border-t border-border-warm flex items-center justify-center gap-2">
+                        <MaterialIcon
+                          name={s.icon}
+                          className="text-secondary text-xl"
+                        />
+                        <span className="text-[10px] md:text-xs font-label-md text-on-surface-variant uppercase tracking-wider">
+                          {s.badgeText}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
