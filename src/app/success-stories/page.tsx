@@ -1,7 +1,105 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MaterialIcon from "@/components/MaterialIcon";
+
+function AchievementCard({
+  item,
+  delayMs,
+}: {
+  item: {
+    name: string;
+    badge: string;
+    alt: string;
+    src: any;
+  };
+  delayMs: number;
+}) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      setIsIntersecting(true);
+      return;
+    }
+
+    let observerFired = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        observerFired = true;
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    // Fallback: trigger animation after a short delay in case observer is blocked
+    const timeout = setTimeout(() => {
+      if (!observerFired) {
+        setIsIntersecting(true);
+      }
+    }, 600);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  return (
+    <div
+      ref={ref}
+      className={`group bg-white border border-border-warm p-4 overflow-hidden rounded-xl hover:-translate-y-2 hover:shadow-lg ${
+        prefersReducedMotion
+          ? "opacity-100"
+          : isIntersecting
+          ? "animate-fade-rise-mobile"
+          : "opacity-100 max-md:opacity-0"
+      }`}
+      style={{
+        animationDelay: isIntersecting && !prefersReducedMotion ? `${delayMs}ms` : "0ms",
+      }}
+    >
+      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-6 relative">
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          className={`object-cover transition-transform duration-[700ms] group-hover:scale-105 ${
+            prefersReducedMotion
+              ? "opacity-100 scale-100"
+              : isIntersecting
+              ? "animate-zoom-mobile"
+              : "opacity-100 max-md:opacity-0"
+          }`}
+          style={{
+            animationDelay: isIntersecting && !prefersReducedMotion ? `${delayMs}ms` : "0ms",
+          }}
+          sizes="(max-width: 768px) 100vw, 350px"
+        />
+        <div className="absolute top-4 right-4 bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 font-label-md text-xs rounded-full shadow-sm">
+          {item.badge}
+        </div>
+      </div>
+      <h3 className="font-headline-md text-lg md:text-xl text-primary text-center mt-2 font-semibold">
+        {item.name}
+      </h3>
+    </div>
+  );
+}
 import Ns from "./Ns.jpeg";
 import Vs from "./Vs.jpeg";
 import Ps from "./Ps.jpeg";
@@ -26,7 +124,7 @@ const achievements = [
     src: Vs,
   },
   {
-    name: "Nishanth",
+    name: "Nishanth Chamarthi",
     badge: "Runner Up",
     alt: "Two kids shaking hands at chess board",
     src: Ns,
@@ -64,7 +162,7 @@ const testimonials = [
     src: Dj,
   },
   {
-    parent: "Vinay Shah (IND)",
+    parent: "Dr. Vinay Shah (IND)",
     child: "Vraj",
     quote:
       "Vraj has been part of Prime Square since the beginning of his chess journey. Through Amit sir's structured guidance and regular practice, he built a strong foundation and steadily improved his game. It has been wonderful to see him perform well in competitive tournaments, win several prizes, and earn his FIDE rating. Amit sir's dedication played an important role in shaping Viraj's early chess journey.",
@@ -82,14 +180,44 @@ const testimonials = [
 export default function SuccessStories() {
   return (
     <main className="flex flex-col">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeRiseMobile {
+          from {
+            opacity: 0;
+            transform: translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes zoomMobile {
+          from {
+            transform: scale(0.96);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        .animate-fade-rise-mobile {
+          animation: fadeRiseMobile 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-fill-mode: backwards;
+        }
+        .animate-zoom-mobile {
+          animation: zoomMobile 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-fill-mode: backwards;
+        }
+      ` }} />
       {/* 1. Hero Header Banner */}
-      <section className="relative pt-32 pb-16 md:py-16 bg-surface overflow-hidden">
+      <section className="relative pt-12 pb-12 md:py-16 bg-surface overflow-hidden">
         <div className="absolute inset-0 bg-radial from-primary/5 via-transparent to-transparent -z-10" />
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop text-center mt-12">
-          <span className="font-label-md text-label-md text-secondary uppercase tracking-[0.2em] mb-4 block text-xs md:text-sm">
+        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop text-center mt-1 md:mt-12">
+          <span className="font-label-md text-label-md text-secondary uppercase tracking-[0.2em] mb-3 md:mb-4 block text-xs md:text-sm">
             Our Students
           </span>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-primary mb-8 max-w-3xl mx-auto">
+          <h1 className="font-display text-2xl md:text-4xl lg:text-5xl text-primary mb-4 md:mb-8 max-w-3xl mx-auto">
             Success Stories
           </h1>
           <p className="font-sans text-sm md:text-body-lg text-body-muted max-w-2xl mx-auto leading-relaxed">
@@ -101,10 +229,10 @@ export default function SuccessStories() {
       </section>
 
       {/* 2. Student Achievements Grid */}
-      <section className="bg-surface-white py-16 border-t border-border-warm">
+      <section className="bg-surface-white py-12 md:py-16 border-t border-border-warm">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="mb-16 text-center md:text-left">
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary mb-4">
+          <div className="mb-10 md:mb-16 text-center md:text-left">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-3 md:mb-4">
               Celebrating Student Achievements
             </h2>
             <p className="font-sans text-sm md:text-body-lg text-body-muted max-w-xl">
@@ -113,58 +241,43 @@ export default function SuccessStories() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {achievements.map((item, idx) => (
-              <div
+              <AchievementCard
                 key={idx}
-                className="group bg-white border border-border-warm p-4 overflow-hidden rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-lg"
-              >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-6 relative">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 350px"
-                  />
-                  <div className="absolute top-4 right-4 bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 font-label-md text-xs rounded-full shadow-sm">
-                    {item.badge}
-                  </div>
-                </div>
-                <h3 className="font-headline-md text-lg md:text-xl text-primary text-center mt-2 font-semibold">
-                  {item.name}
-                </h3>
-              </div>
+                item={item}
+                delayMs={idx * 150}
+              />
             ))}
           </div>
         </div>
       </section>
 
       {/* 3. Parent Testimonials Section */}
-      <section className="py-20 md:py-24 bg-[#FAFAFA] border-t border-border-warm">
+      <section className="py-12 md:py-24 bg-[#FAFAFA] border-t border-border-warm">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="text-center mb-16">
-            <span className="text-secondary font-label-md text-xs uppercase tracking-widest block mb-3">
+          <div className="text-center mb-10 md:mb-16">
+            <span className="text-secondary font-label-md text-xs uppercase tracking-widest block mb-2 md:mb-3">
               HEAR FROM OUR PARENTS
             </span>
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary max-w-2xl mx-auto">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary max-w-2xl mx-auto">
               Real Stories of Growth and Achievement
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {testimonials.map((t, idx) => (
               <div
                 key={idx}
-                className="bg-white p-8 md:p-10 border border-border-warm flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-secondary hover:shadow-md group rounded-2xl"
+                className="bg-white p-6 md:p-10 border border-border-warm flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-secondary hover:shadow-md group rounded-2xl"
               >
                 <div>
 
-                  <p className="font-sans text-sm md:text-base text-on-surface mb-8 leading-relaxed italic">
+                  <p className="font-sans text-sm md:text-base text-on-surface mb-6 md:mb-8 leading-relaxed italic">
                     &ldquo;{t.quote}&rdquo;
                   </p>
                 </div>
-                <div className="flex items-center gap-4 border-t border-border-warm/50 pt-6 mt-auto">
+                <div className="flex items-center gap-4 border-t border-border-warm/50 pt-5 md:pt-6 mt-auto">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border border-border-warm transition-transform group-hover:scale-105 duration-300">
                     <Image
                       src={t.src}
@@ -190,22 +303,22 @@ export default function SuccessStories() {
       </section>
 
       {/* 4. Final CTA */}
-      <section className="py-20 md:py-24 bg-cta-deep-green text-surface-bright relative overflow-hidden">
+      <section className="py-12 md:py-24 bg-cta-deep-green text-surface-bright relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-radial from-secondary-container/10 to-transparent" />
         <div className="max-w-[1240px] mx-auto px-6 md:px-margin-desktop text-center relative z-10">
-          <h2 className="font-display text-3xl md:text-5xl mb-6 max-w-4xl mx-auto leading-tight">
+          <h2 className="font-display text-2xl md:text-5xl mb-4 md:mb-6 max-w-4xl mx-auto leading-tight">
             Help Your Child Discover Their
-            <br />
+            <br className="hidden md:inline" />
             Potential Through Chess.
           </h2>
-          <p className="font-sans text-sm md:text-body-lg mb-10 opacity-90 max-w-xl mx-auto leading-relaxed">
+          <p className="font-sans text-sm md:text-body-lg mb-8 md:mb-10 opacity-90 max-w-xl mx-auto leading-relaxed">
             Experience a personalized trial lesson with experienced tournament
             players. Discover how structured coaching helps children improve with
             confidence.
           </p>
           <Link
             href="/book"
-            className="inline-block bg-surface-bright text-primary font-button text-button px-10 py-5 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-md font-bold text-center"
+            className="inline-block bg-surface-bright text-primary font-button text-button px-8 py-3.5 md:px-10 md:py-5 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-md font-bold text-center"
           >
             Book Your Free Trial
           </Link>
