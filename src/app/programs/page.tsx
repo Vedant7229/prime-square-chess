@@ -1,8 +1,74 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MaterialIcon from "@/components/MaterialIcon";
 import Accordion from "@/components/ui/Accordion";
+
+function MobileAnimatedCard({
+  children,
+  className,
+  delayMs,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delayMs: number;
+}) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      setIsIntersecting(true);
+      return;
+    }
+
+    let observerFired = false;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        observerFired = true;
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    // Fallback: trigger animation after a short delay in case observer is blocked
+    const timeout = setTimeout(() => {
+      if (!observerFired) {
+        setIsIntersecting(true);
+      }
+    }, 600);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`${className} transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100 ${isIntersecting
+        ? "max-md:opacity-100 max-md:translate-y-0"
+        : "max-md:opacity-0 max-md:translate-y-5"
+        }`}
+      style={{
+        transitionDelay: isIntersecting ? `${delayMs}ms` : "0ms",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 import Level1 from "./Level 1.png";
 import Level2 from "./Level 2.png";
 import Level3 from "./Level 3.png";
@@ -19,6 +85,12 @@ const levels = [
     desc: "Introduce your child to chess and its great possibilities. By the end, they know how to play by rules and basic strategies.",
     icon: Level1,
     alt: "Pawn Icon",
+    bullets: [
+      "Standard International Chess Rules",
+      "Piece movement and Importance",
+      "Center Control",
+      "Basic checkmates and Types of Draws",
+    ],
   },
   {
     num: "02",
@@ -27,6 +99,12 @@ const levels = [
     desc: "Master piece coordination, king safety and piece development. Learn basic tactical motifs like fork, pin, and skewer.",
     icon: Level2,
     alt: "Knight Icon",
+    bullets: [
+      "Master Piece Coordination",
+      "King Safety",
+      "Piece Development",
+      "Simple Tactics",
+    ],
   },
   {
     num: "03",
@@ -35,6 +113,12 @@ const levels = [
     desc: "Master concepts of endgame. Improve game planning & advance move calculation. Exploring piece sacrifices and central control.",
     icon: Level3,
     alt: "Rook Icon",
+    bullets: [
+      "Master concepts of endgame",
+      "Improve game planning",
+      "Advance move calculation",
+      "Piece sacrifices",
+    ],
   },
   {
     num: "04",
@@ -43,6 +127,12 @@ const levels = [
     desc: "Elevate to professional skills with mastery of tactics. Compete to win with advanced competitive skills.",
     icon: Level4,
     alt: "Queen Icon",
+    bullets: [
+      "Advanced Tactics",
+      "Multi Move calculation",
+      "Game Analysis",
+      "Tournament Winning Strategies",
+    ],
   },
   {
     num: "05",
@@ -51,6 +141,11 @@ const levels = [
     desc: "Game analysis and insights from games of top GMs and World Chess Champions. Excel in deep calculation with advanced traps and tricks.",
     icon: Level5,
     alt: "Swords Icon",
+    bullets: [
+      "Advanced tactical patterns",
+      "Grandmaster game analysis",
+      "Advanced positional planning",
+    ],
   },
 ];
 
@@ -126,21 +221,24 @@ export default function Programs() {
   return (
     <main className="flex flex-col">
       {/* 1. Header Hero Banner */}
-      <section className="bg-primary text-white py-16 md:py-24 relative overflow-hidden">
+      <section className="bg-primary text-white py-11 md:py-24 relative overflow-hidden">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop relative z-10">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-secondary font-label-md uppercase tracking-[0.25em] text-xs md:text-sm">
+          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+            <span className="text-secondary font-label-md uppercase tracking-[0.25em] text-[10px] md:text-sm">
               Programs
             </span>
-            <div className="h-px w-8 bg-secondary/50"></div>
+            <div className="h-px w-6 md:w-8 bg-secondary/50"></div>
           </div>
-          <h1 className="font-display text-4xl md:text-display-lg text-white mb-6">
+          <h1 className="font-display text-2xl md:text-display-lg text-white mb-4 md:mb-6">
             Our Programs
           </h1>
-          <p className="font-sans text-sm md:text-body-lg text-white/80 max-w-[540px] leading-relaxed">
+          <p className="hidden md:block font-sans text-sm md:text-body-lg text-white/80 max-w-[540px] leading-relaxed">
             Explore our structured learning pathways designed to help every child
             progress with confidence, from beginner fundamentals to advanced
             competitive play.
+          </p>
+          <p className="md:hidden font-sans text-[13px] text-white/80 max-w-[540px] leading-relaxed">
+            Structured chess coaching from beginner fundamentals to advanced competitive play.
           </p>
         </div>
 
@@ -157,13 +255,13 @@ export default function Programs() {
       </section>
 
       {/* 2. Choose Your Starting Point */}
-      <section className="py-20 md:py-24 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-10 md:mb-16">
             <span className="text-secondary font-label-md uppercase tracking-[0.2em] mb-3 text-xs">
               CURRICULUM PATH
             </span>
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary">
               Choose Your Child&apos;s Starting Point
             </h2>
             <p className="text-body-muted text-sm md:text-base mt-3 max-w-2xl">
@@ -193,37 +291,49 @@ export default function Programs() {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {levels.map((l, idx) => (
-              <div
+              <MobileAnimatedCard
                 key={idx}
-                className="bg-surface-white p-6 rounded-2xl border border-border-warm hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col"
+                delayMs={idx * 80}
+                className="w-full h-full"
               >
-                <div className="flex items-start gap-4 flex-col">
-                  <div className="w-12 h-10 rounded-lg bg-[#F8F5F0] border border-[rgba(12,49,38,0.08)] flex items-center justify-center relative">
-                    <Image
-                      src={l.icon}
-                      alt={l.alt}
-                      width={32}
-                      height={32}
-                      className="object-contain"
-                    />
+                <div
+                  className="bg-surface-white p-5 md:p-6 rounded-2xl border border-border-warm hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col max-md:active:scale-[0.98] max-md:min-h-[225px] max-md:h-auto h-full"
+                >
+                  <div className="flex items-start gap-3 md:gap-4 flex-col h-full">
+                    <div className="w-12 h-10 rounded-lg bg-[#F8F5F0] border border-[rgba(12,49,38,0.08)] flex items-center justify-center relative">
+                      <Image
+                        src={l.icon}
+                        alt={l.alt}
+                        width={45}
+                        height={38}
+                        className="object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-headline-md text-lg md:text-xl text-primary leading-tight">
+                        {l.title}
+                      </h3>
+                      <span className="text-secondary font-label-md text-[10px] md:text-xs uppercase tracking-widest block mt-1">
+                        {l.level}
+                      </span>
+                    </div>
+                    <p className="hidden md:block text-sm text-body-muted leading-relaxed mt-2">
+                      {l.desc}
+                    </p>
+                    <div className="md:hidden mt-0.5 w-full">
+                      <ul className="space-y-1.5 text-xs text-body-muted list-disc pl-4 leading-relaxed">
+                        {l.bullets.map((bullet, bIdx) => (
+                          <li key={bIdx}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-headline-md text-lg md:text-xl text-primary leading-tight">
-                      {l.title}
-                    </h3>
-                    <span className="text-secondary font-label-md text-[10px] md:text-xs uppercase tracking-widest block mt-1">
-                      {l.level}
-                    </span>
-                  </div>
-                  <p className="text-sm text-body-muted leading-relaxed mt-2">
-                    {l.desc}
-                  </p>
                 </div>
-              </div>
+              </MobileAnimatedCard>
             ))}
           </div>
 
-          <div className="mt-12 flex items-center justify-center gap-2 text-body-muted">
+          <div className="mt-8 md:mt-12 flex items-center justify-center gap-2 text-body-muted">
             <MaterialIcon
               name="emoji_events"
               className="text-secondary text-lg"
@@ -238,14 +348,15 @@ export default function Programs() {
       </section>
 
       {/* 3. Class Formats */}
-      <section className="bg-surface-container-low py-20 md:py-24 border-y border-border-warm">
+      <section className="bg-surface-container-low py-12 md:py-24 border-y border-border-warm">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-10 md:mb-16">
             <span className="text-secondary font-label-md uppercase tracking-[0.2em] mb-3 text-xs">
               Learning Format
             </span>
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary">
-              Choose the Learning Style That Fits Your Child
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary">
+              <span className="hidden md:inline">Choose the Learning Style That Fits Your Child</span>
+              <span className="md:hidden">Choose Your Learning Format</span>
             </h2>
             <p className="text-body-muted text-sm md:text-base mt-3 max-w-xl">
               Two proven formats. One mission — to make your child a confident
@@ -254,10 +365,10 @@ export default function Programs() {
           </div>
 
           {/* Formats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-16">
             {/* One-to-One Card */}
-            <div className="bg-primary p-8 md:p-10 rounded-[20px] text-white flex flex-col relative overflow-hidden">
-              <div className="flex justify-between items-start mb-8">
+            <div className="bg-primary p-6 md:p-10 rounded-[20px] text-white flex flex-col relative overflow-hidden">
+              <div className="flex justify-between items-start mb-6 md:mb-8">
                 <div className="w-14 h-14 bg-cta-deep-green rounded-xl flex items-center justify-center relative">
                   <Image
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqkk_rMC9_a1HS9Sn7RGZ2R5l3sAQkDMNiDrocIAnM2vweyDY_lVaQFV0zcX4NVGF7QCSjS3IJ_iEEncacCFySw-4MUhHMn27KfwtQ_XqnddYzeCE5glETQ4BLP4YRirfbwnKdtFTJljzyofkb6GaROlUed74waNd1aim71SNAz2fZRd9SGi02CUN2nR-iaxf3ZGHD9CXRZpFrHlQonUec_phwRMPHl-CKA7AOTTeAiap4LZrhLClLknRkjXqZb9vsLVVj0zhlRmfN"
@@ -267,16 +378,16 @@ export default function Programs() {
                     className="object-contain"
                   />
                 </div>
-                <span className="inline-flex items-center gap-1 bg-secondary text-white font-label-md uppercase tracking-wider text-[10px] px-3 py-1 rounded-full">
-                  <MaterialIcon name="star" className="text-xs" fill /> MOST
+                <span className="inline-flex items-center gap-0.5 bg-secondary text-white font-label-md uppercase tracking-wider text-[7.5px] md:text-[10px] px-1.5 py-0.5 md:px-3 md:py-1 rounded-full">
+                  <MaterialIcon name="star" className="text-[8px] md:text-xs" fill /> MOST
                   EFFECTIVE
                 </span>
               </div>
-              <h3 className="font-display text-2xl md:text-3xl mb-6">
+              <h3 className="font-display text-2xl md:text-3xl mb-4 md:mb-6">
                 One-to-One Coaching
               </h3>
-              <div className="h-0.5 w-10 bg-secondary mb-8"></div>
-              <ul className="space-y-4 mb-8 flex-grow">
+              <div className="h-0.5 w-10 bg-secondary mb-6 md:mb-8"></div>
+              <ul className="space-y-3.5 md:space-y-4 mb-6 md:mb-8 flex-grow">
                 {[
                   "Personalized curriculum at child's pace",
                   "Flexible scheduling for busy families",
@@ -294,7 +405,7 @@ export default function Programs() {
                   </li>
                 ))}
               </ul>
-              <div className="border-t border-white/20 pt-6">
+              <div className="border-t border-white/20 pt-5 md:pt-6">
                 <p className="text-secondary font-label-md uppercase tracking-wider text-xs mb-2">
                   Recommended For
                 </p>
@@ -306,8 +417,8 @@ export default function Programs() {
             </div>
 
             {/* Group Classes Card */}
-            <div className="bg-surface-white p-8 md:p-10 rounded-[20px] border border-border-warm flex flex-col relative overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex justify-between items-start mb-8">
+            <div className="bg-surface-white p-6 md:p-10 rounded-[20px] border border-border-warm flex flex-col relative overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-start mb-6 md:mb-8">
                 <div className="w-14 h-14 bg-on-primary-container/5 rounded-xl flex items-center justify-center relative">
                   <Image
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1bqH86K-8gDGW8mPqLEq1lgAZFi-lIWlIav3noy3u7QOpQJSouEJDeFgb5UQsUsxAyLZ_iqyW7tzZxl8wAWoAZPy6K5exdGSjYGC6APcF_B8yGX5H7y06WW0xZLhlbK-rL3nkWVqwynLjMiHNNmvv8ApyKBcxlkhKVNiaVK0SHAhn_x2dCyxOGMa_C31u_eQP0IcMJW00tRAadtYH1SCTQzF6LYNZepLIMq-AIjDc49R1CCthjroQFGHnIXvKfjlvkzCwRjrCxQ_Z"
@@ -317,15 +428,15 @@ export default function Programs() {
                     className="object-contain"
                   />
                 </div>
-                <span className="text-secondary font-label-md uppercase tracking-wider text-[10px] bg-secondary/10 px-3 py-1 rounded-full">
+                <span className="text-secondary font-label-md uppercase tracking-wider text-[8px] md:text-[10px] bg-secondary/10 px-2 md:px-3 py-0.5 md:py-1 rounded-full">
                   Social Learning
                 </span>
               </div>
-              <h3 className="font-display text-2xl md:text-3xl text-primary mb-6">
+              <h3 className="font-display text-2xl md:text-3xl text-primary mb-4 md:mb-6">
                 Group Classes
               </h3>
-              <div className="h-0.5 w-10 bg-border-warm mb-8"></div>
-              <ul className="space-y-4 mb-8 flex-grow">
+              <div className="h-0.5 w-10 bg-border-warm mb-6 md:mb-8"></div>
+              <ul className="space-y-3.5 md:space-y-4 mb-6 md:mb-8 flex-grow">
                 {[
                   "Small batches of 3–4 students",
                   "Interactive peer-based learning",
@@ -343,7 +454,7 @@ export default function Programs() {
                   </li>
                 ))}
               </ul>
-              <div className="border-t border-border-warm pt-6">
+              <div className="border-t border-border-warm pt-5 md:pt-6">
                 <p className="text-secondary font-label-md uppercase tracking-wider text-xs mb-2">
                   Recommended For
                 </p>
@@ -355,12 +466,12 @@ export default function Programs() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2 text-body-muted text-sm">
-            <p>
-              Not sure which to choose?{" "}
+          <div className="flex items-center justify-center gap-2 text-body-muted text-sm max-md:bg-secondary/5 max-md:border max-md:border-secondary/15 max-md:rounded-xl max-md:py-3.5 max-md:px-4 max-md:max-w-md max-md:mx-auto max-md:shadow-sm">
+            <p className="max-md:flex max-md:flex-col max-md:items-center max-md:gap-1.5 max-md:text-xs">
+              <span className="max-md:text-body-muted">Not sure which to choose?</span>{" "}
               <Link
                 href="/book"
-                className="text-primary font-bold border-b border-primary hover:text-secondary hover:border-secondary transition-all"
+                className="text-primary font-bold border-b border-primary hover:text-secondary hover:border-secondary transition-all max-md:text-secondary max-md:border-b-secondary max-md:mt-0.5"
               >
                 Speak to an Expert Coach →
               </Link>
@@ -370,13 +481,13 @@ export default function Programs() {
       </section>
 
       {/* 4. Ecosystem features */}
-      <section className="py-20 md:py-24 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="mb-16">
+          <div className="mb-10 md:mb-16">
             <span className="text-secondary font-label-md uppercase tracking-[0.2em] mb-3 text-xs block">
               OUR ECOSYSTEM
             </span>
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary mb-4">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-3 md:mb-4">
               What Every Student Receives
             </h2>
             <p className="text-body-muted text-sm md:text-base max-w-xl">
@@ -385,43 +496,51 @@ export default function Programs() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {ecosystem.map((item, idx) => (
-              <div
+              <MobileAnimatedCard
                 key={idx}
-                className="border border-border-warm rounded-xl p-8 bg-surface-white hover:border-primary/20 transition-all duration-300 flex flex-col gap-6"
+                delayMs={idx * 80}
+                className="w-full"
               >
-                <div className="w-14 h-14 rounded-2xl bg-surface-container-low flex items-center justify-center transition-colors hover:bg-primary group relative">
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={32}
-                    height={32}
-                    className="object-contain transition-all group-hover:brightness-0 group-hover:invert"
-                  />
+                <div
+                  className="border border-border-warm rounded-xl p-6 md:p-8 bg-surface-white hover:border-primary/20 transition-all duration-300 flex max-md:flex-row max-md:items-start max-md:gap-4 max-md:pb-6 max-md:border-b max-md:border-b-border-warm/60 max-md:last:border-b-0 max-md:last:pb-0 max-md:bg-transparent max-md:border-0 max-md:rounded-none flex-col gap-4 md:gap-6"
+                >
+                  {/* Icon Wrapper */}
+                  <div className="w-[50px] h-[50px] md:w-14 md:h-14 rounded-2xl bg-surface-container-low flex items-center justify-center transition-colors hover:bg-primary group relative flex-shrink-0">
+                    <Image
+                      src={item.icon}
+                      alt={item.title}
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 object-contain transition-all group-hover:brightness-0 group-hover:invert"
+                    />
+                  </div>
+
+                  {/* Text Wrapper */}
+                  <div className="flex flex-col gap-1.5 md:gap-3">
+                    <h4 className="font-headline-md text-base md:text-xl text-primary font-semibold leading-tight">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-body-muted leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-headline-md text-xl text-primary mb-3">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm text-body-muted leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
+              </MobileAnimatedCard>
             ))}
           </div>
         </div>
       </section>
 
       {/* 5. FAQs Accordion */}
-      <section className="py-20 bg-surface-bright border-t border-border-warm">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-16">
+      <section className="py-12 md:py-20 bg-surface-bright border-t border-border-warm">
+        <div className="max-w-3xl mx-auto px-4 md:px-6">
+          <div className="text-center mb-10 md:mb-16">
             <span className="text-secondary font-label-md uppercase tracking-[0.2em] mb-3 text-xs block">
               FAQS
             </span>
-            <h2 className="font-display text-3xl md:text-headline-lg text-primary mb-4">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-3 md:mb-4">
               Questions Parents Often Ask
             </h2>
             <p className="text-body-muted text-sm md:text-base">
@@ -433,22 +552,22 @@ export default function Programs() {
       </section>
 
       {/* 6. Final CTA */}
-      <section className="text-center bg-cta-deep-green text-surface-bright py-20 md:py-24 relative overflow-hidden">
+      <section className="text-center bg-cta-deep-green text-surface-bright py-12 md:py-24 relative overflow-hidden">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-on-tertiary-container/10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-on-primary-container/5 rounded-full blur-3xl"></div>
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop relative z-10">
           <div className="max-w-3xl mx-auto">
-            <h2 className="font-display text-3xl md:text-5xl text-white mb-6 leading-tight">
-              Help Your Child Discover Their <br /> Potential Through Chess.
+            <h2 className="font-display text-2xl md:text-5xl text-white mb-4 md:mb-6 leading-tight">
+              Help Your Child Discover Their <br className="hidden md:inline" /> Potential Through Chess.
             </h2>
-            <p className="font-sans text-sm md:text-body-lg mb-10 text-white/95 leading-relaxed">
+            <p className="font-sans text-sm md:text-body-lg mb-8 text-white/95 leading-relaxed">
               Experience a personalized trial lesson with experienced tournament
-              players. <br /> Discover how structured coaching helps children improve
+              players. <br className="hidden md:inline" /> Discover how structured coaching helps children improve
               with confidence.
             </p>
             <Link
               href="/book"
-              className="inline-block bg-white px-10 py-4 rounded-lg font-button text-base md:text-lg text-primary hover:bg-surface-bright transition-all shadow-lg font-bold"
+              className="inline-block bg-white px-8 py-3 md:px-10 md:py-4 rounded-lg font-button text-base md:text-lg text-primary hover:bg-surface-bright transition-all shadow-lg font-bold"
             >
               Book Your Free Trial
             </Link>
