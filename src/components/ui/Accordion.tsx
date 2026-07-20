@@ -20,24 +20,24 @@ export default function Accordion({ items }: AccordionProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3.5 md:space-y-6">
       {items.map((item, index) => {
         const isOpen = activeIndex === index;
         return (
           <div
             key={index}
-            className={`border bg-surface-white overflow-hidden transition-all duration-300 rounded-[20px] shadow-sm ${
+            className={`border transition-all duration-300 rounded-xl md:rounded-[20px] shadow-sm ${
               isOpen
-                ? "border-primary ring-1 ring-primary/20"
-                : "border-border-warm hover:border-primary/20"
+                ? "border-primary ring-1 ring-primary/20 bg-primary/[0.015] md:bg-surface-white"
+                : "border-border-warm bg-surface-white hover:border-primary/20"
             }`}
           >
             <button
-              className="flex items-center justify-between text-left hover:bg-surface-container-low transition-colors group w-full py-6 px-[28px] focus:outline-none"
+              className="flex items-center justify-between text-left hover:bg-surface-container-low transition-all duration-150 active:scale-[0.995] md:active:scale-100 group w-full py-4 px-5 md:py-6 md:px-[28px] focus:outline-none"
               onClick={() => toggle(index)}
             >
               <span
-                className={`font-headline-md text-lg md:text-xl transition-colors duration-300 ${
+                className={`font-headline-md text-base md:text-xl transition-colors duration-300 ${
                   isOpen ? "text-primary font-semibold" : "text-on-surface"
                 }`}
               >
@@ -51,12 +51,14 @@ export default function Accordion({ items }: AccordionProps) {
               />
             </button>
             <div
-              className={`transition-all duration-300 ease-in-out ${
-                isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              } overflow-hidden`}
+              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
+                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
             >
-              <div className="px-8 pb-8 font-body-md text-on-surface-variant text-sm md:text-base leading-relaxed border-t border-border-warm/50 pt-4">
-                {item.answer}
+              <div className="overflow-hidden">
+                <div className="px-5 pb-5 font-body-md text-on-surface-variant text-sm md:text-base leading-relaxed border-t border-border-warm/50 pt-3 md:px-8 md:pb-8 md:pt-4">
+                  {item.answer}
+                </div>
               </div>
             </div>
           </div>

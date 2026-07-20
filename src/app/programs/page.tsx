@@ -294,7 +294,7 @@ export default function Programs() {
               <MobileAnimatedCard
                 key={idx}
                 delayMs={idx * 80}
-                className="w-full h-full"
+                className="w-full max-w-[390px] mx-auto md:max-w-none md:mx-0 h-full"
               >
                 <div
                   className="bg-surface-white p-5 md:p-6 rounded-2xl border border-border-warm hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col max-md:active:scale-[0.98] max-md:min-h-[225px] max-md:h-auto h-full"

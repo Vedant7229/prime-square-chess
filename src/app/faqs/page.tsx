@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import MaterialIcon from "@/components/MaterialIcon";
 import Accordion from "@/components/ui/Accordion";
+import Support from "./Support.png";
+import Enrollment from "./Enrollment.png";
+import Classes from "./Classes.png";
 
 // FAQs by Category
 const classesFaqs = [
@@ -65,8 +68,8 @@ export default function FAQsPage() {
   return (
     <main className="flex flex-col">
       {/* 1. Hero Header Banner */}
-      <section className="relative overflow-hidden bg-surface pt-32 pb-8 md:py-20 border-b border-border-warm">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop text-center mt-12">
+      <section className="relative overflow-hidden bg-surface pt-12 pb-8 md:py-16 border-b border-border-warm">
+        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop text-center mt-1 md:mt-12">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-[1px] w-12 bg-secondary/50"></div>
             <span className="font-label-md text-label-md text-secondary tracking-[0.2em] uppercase text-xs md:text-sm">
@@ -87,12 +90,11 @@ export default function FAQsPage() {
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-[1085px] mx-auto px-6">
           {/* Classes Accordion Group */}
-          <div className="bg-surface-container-lowest border border-border-warm/60 shadow-sm p-6 md:p-10 mb-12 rounded-[20px]">
-            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-8 border-b border-border-warm pb-4 flex items-center gap-4">
-              <div className="w-[34px] h-[34px] bg-surface-container-low border border-border-warm rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden mr-1 relative">
+          <div className="bg-surface-container-lowest border border-border-warm/60 shadow-sm p-4 md:p-10 mb-6 md:mb-12 rounded-2xl md:rounded-[20px]">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-4 md:mb-8 border-b border-border-warm pb-3 md:pb-4 flex items-center gap-5 md:gap-4">
+              <div className="w-11 h-11 md:w-[34px] md:h-[34px] bg-surface-container-low border border-border-warm rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden mr-0 md:mr-1 relative">
                 <Image
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvTf-LJhBsxFKd6oQKoGmbPHQOnAdGeRBVDCg7qzMZu827_PrshIHO3gkv_00RFrscboTDpM1eYOJNDh82uNrYqOtfTMWiSFpblBkT_m7zOdP87afhpxRX6wCTsQFhE0ezugThM4NOmkyfHsDZupVZCU-isMSXAfhp3za5-nNNM15_y0nWf66J_vTOPF5Zh8ab3jaSDQ5yy_9sEBmC5DzNg4gloKt-PRUuMEinJIL44y5sTRZ03VEgms8VcUAmeEYkFXY2po_fajWe"
-                  alt="Classes icon"
+                  src={Classes} alt="Classes icon"
                   fill
                   className="object-contain"
                   sizes="32px"
@@ -104,12 +106,11 @@ export default function FAQsPage() {
           </div>
 
           {/* Enrollment Accordion Group */}
-          <div className="bg-surface-container-lowest border border-border-warm/60 shadow-sm p-6 md:p-10 mb-12 rounded-[20px]">
-            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-8 border-b border-border-warm pb-4 flex items-center gap-4">
-              <div className="w-[34px] h-[34px] bg-surface-container-low border border-border-warm rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden mr-1 relative">
+          <div className="bg-surface-container-lowest border border-border-warm/60 shadow-sm p-4 md:p-10 mb-6 md:mb-12 rounded-2xl md:rounded-[20px]">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-4 md:mb-8 border-b border-border-warm pb-3 md:pb-4 flex items-center gap-5 md:gap-4">
+              <div className="w-11 h-11 md:w-[34px] md:h-[34px] bg-surface-container-low border border-border-warm rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden mr-0 md:mr-1 relative">
                 <Image
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8EI8Vp0p_7oGTWdQEec2AjkrM3JHJiffhPuaDCxPruGgEXyv8VgbQ5sTR0xERkhsk9ukg7JShaqF7t_9nNwLl_cexDE6KF4cXgryk1pyS37AXG_QFnTCvA1HqBzJcIAN0ejm27DEBZXx_kADliIzDFEpxzor4tzgTb2YAUY0KF3SfwDD8o-p6h5v5vc5SS7_asjr8r7E7_jO7Tn72OnvkDtqEHpVxPxeRnX_qUMtfDPt_BtmGiHVgVCJSEpUhP80vdFd5qwDOfwiO"
-                  alt="Enrollment icon"
+                  src={Enrollment} alt="Enrollment icon"
                   fill
                   className="object-contain"
                   sizes="32px"
@@ -121,11 +122,11 @@ export default function FAQsPage() {
           </div>
 
           {/* Support Accordion Group */}
-          <div className="bg-surface-container-lowest border border-border-warm/60 shadow-sm p-6 md:p-10 mb-12 rounded-[20px]">
-            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-8 border-b border-border-warm pb-4 flex items-center gap-4">
-              <div className="w-[34px] h-[34px] bg-surface-container-low border border-border-warm rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden mr-1 relative">
+          <div className="bg-surface-container-lowest border border-border-warm/60 shadow-sm p-4 md:p-10 mb-6 md:mb-12 rounded-2xl md:rounded-[20px]">
+            <h2 className="font-display text-2xl md:text-headline-lg text-primary mb-4 md:mb-8 border-b border-border-warm pb-3 md:pb-4 flex items-center gap-5 md:gap-4">
+              <div className="w-11 h-11 md:w-[34px] md:h-[34px] bg-surface-container-low border border-border-warm rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden mr-0 md:mr-1 relative">
                 <Image
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs4IIyW_VjUC2UohrKTiQ3wr8vDjNh9JY1w2SquZwsP_KmRkpbValilqY_5_RZXTWo68EXtBnBlo45v05Nx-BhFc2AtXmcv7ogG5M3Ofh8boV73lJ9qCMk4m7IyddSpOeDNIgfqcYwR_hVbzOF-QAn23j4ErZ_ouukMijp97zh-4C5TeJQOOHe45hA1HEKA1wzpBql9H8B2d4O3YlHyE95GGQhnTfX_nvRhmRWGhsPFJdm6NJr74Duzj5472KvtCq6GyjEIdYvhbkf"
+                  src={Support}
                   alt="Support icon"
                   fill
                   className="object-contain"
