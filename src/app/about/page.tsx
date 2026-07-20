@@ -224,12 +224,12 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
           {/* Amit Dalal */}
           <div className="flex flex-col md:flex-row gap-5 md:gap-8 items-center bg-surface-white p-5 md:p-8 border border-border-warm rounded-xl max-md:rounded-lg hover:shadow-md transition-shadow">
-            <div className="relative max-md:w-24 max-md:h-24 max-md:rounded-full md:w-48 w-full h-64 bg-surface-container-high rounded-lg overflow-hidden flex-shrink-0">
+            <div className="relative max-md:w-28 max-md:h-28 max-md:rounded-full md:w-48 w-full h-64 bg-surface-container-high rounded-lg overflow-hidden flex-shrink-0">
               <Image
                 src={coachAmit}
                 alt="Amit Dalal portrait"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="192px"
               />
             </div>
@@ -240,7 +240,7 @@ export default function About() {
               <p className="font-label-md text-[10px] md:text-sm text-secondary uppercase tracking-wider mt-1">
                 Founder and Senior Chess Coach
               </p>
-              <p className="font-sans text-[13px] md:text-sm text-body-muted mt-3 md:mt-4 leading-relaxed max-md:text-left">
+              <p className="font-sans text-[13px] md:text-sm text-body-muted mt-3 md:mt-4 leading-relaxed max-md:text-center items-start">
                 With years of coaching experience, Amit has mentored numerous young
                 learners through personalized offline coaching. He is passionate
                 about teaching young minds.
@@ -258,12 +258,12 @@ export default function About() {
 
           {/* Vedant Dalal */}
           <div className="flex flex-col md:flex-row gap-5 md:gap-8 items-center bg-surface-white p-5 md:p-8 border border-border-warm rounded-xl max-md:rounded-lg hover:shadow-md transition-shadow">
-            <div className="relative max-md:w-24 max-md:h-24 max-md:rounded-full md:w-48 w-full h-64 bg-surface-container-high rounded-lg overflow-hidden flex-shrink-0">
+            <div className="relative max-md:w-28 max-md:h-28 max-md:rounded-full md:w-48 w-full h-64 bg-surface-container-high rounded-lg overflow-hidden flex-shrink-0">
               <Image
                 src={coachVedant}
                 alt="Vedant Dalal portrait"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="192px"
               />
             </div>
@@ -274,7 +274,7 @@ export default function About() {
               <p className="font-label-md text-[10px] md:text-sm text-secondary uppercase tracking-wider mt-1">
                 Co-founder & Lead Online Chess Coach
               </p>
-              <p className="font-sans text-[13px] md:text-sm text-body-muted mt-3 md:mt-4 leading-relaxed max-md:text-left">
+              <p className="font-sans text-[13px] md:text-sm text-body-muted mt-3 md:mt-4 leading-relaxed max-md:text-center items-start">
                 Played competitively in international tournaments and worked at
                 multiple chess academies. Vedant specializes in engaging online
                 coaching for students internationally.
@@ -296,7 +296,7 @@ export default function About() {
       {/* 4. Teaching Philosophy */}
       <section className="bg-surface-container py-14 md:py-24 border-y border-border-warm">
         <div className="px-5 md:px-margin-desktop max-w-container-max mx-auto">
-          <div className="text-center mb-10 md:mb-16 max-w-3xl mx-auto">
+          <div className="text-center mb-6 md:mb-16 max-w-3xl mx-auto">
             <span className="font-label-md text-[10px] md:text-xs text-secondary uppercase tracking-[0.2em] mb-3 md:mb-4 block">
               Our Teaching Philosophy
             </span>
@@ -315,10 +315,10 @@ export default function About() {
             </p>
           </div>
 
-          {/* Snap carousel on mobile, grid on desktop */}
-          <div className="max-md:snap-carousel max-md:gap-4 max-md:-mx-5 max-md:px-5 max-md:pb-4 md:grid md:grid-cols-3 md:gap-8">
+          {/* Stacked on mobile, grid on desktop */}
+          <div className="flex flex-col gap-6 max-w-[350px] sm:max-w-md mx-auto w-full md:grid md:grid-cols-3 md:gap-8 md:max-w-none md:mx-0">
             {/* Principle 1 */}
-            <div className="bg-surface-white p-6 md:p-10 rounded-xl max-md:rounded-lg border border-border-warm text-center flex flex-col items-center hover:shadow-md transition-shadow max-md:snap-carousel-item max-md:w-[280px] max-md:flex-shrink-0">
+            <div className="bg-surface-white p-6 md:p-10 rounded-xl md:rounded-2xl border border-border-warm text-center flex flex-col items-center hover:shadow-md transition-shadow w-full">
               <div className="w-14 h-14 md:w-16 md:h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4 md:mb-6">
                 <Image
                   src="/philosophy-knight.png"
@@ -339,7 +339,7 @@ export default function About() {
             </div>
 
             {/* Principle 2 */}
-            <div className="bg-surface-white p-6 md:p-10 rounded-xl max-md:rounded-lg border border-border-warm text-center flex flex-col items-center hover:shadow-md transition-shadow max-md:snap-carousel-item max-md:w-[280px] max-md:flex-shrink-0">
+            <div className="bg-surface-white p-6 md:p-10 rounded-xl md:rounded-2xl border border-border-warm text-center flex flex-col items-center hover:shadow-md transition-shadow w-full">
               <div className="w-14 h-14 md:w-16 md:h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4 md:mb-6">
                 <MaterialIcon name="groups" className="text-primary text-2xl md:text-3xl" fill />
               </div>
@@ -354,7 +354,7 @@ export default function About() {
             </div>
 
             {/* Principle 3 */}
-            <div className="bg-surface-white p-6 md:p-10 rounded-xl max-md:rounded-lg border border-border-warm text-center flex flex-col items-center hover:shadow-md transition-shadow max-md:snap-carousel-item max-md:w-[280px] max-md:flex-shrink-0">
+            <div className="bg-surface-white p-6 md:p-10 rounded-xl md:rounded-2xl border border-border-warm text-center flex flex-col items-center hover:shadow-md transition-shadow w-full">
               <div className="w-14 h-14 md:w-16 md:h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4 md:mb-6">
                 <MaterialIcon name="trending_up" className="text-primary text-2xl md:text-3xl" fill />
               </div>
@@ -398,7 +398,7 @@ export default function About() {
               <div className="w-12 h-12 md:w-16 md:h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-3 md:mb-4">
                 <MaterialIcon name={m.icon} className="text-secondary text-2xl md:text-3xl" />
               </div>
-              <div className="font-display text-2xl md:text-4xl text-primary font-normal mb-1">
+              <div className="font-display text-3xl md:text-[44px] text-primary font-normal mb-1">
                 {m.num}
               </div>
               <div className="font-label-md text-[10px] md:text-sm text-on-surface font-semibold uppercase tracking-wider mb-1">

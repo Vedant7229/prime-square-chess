@@ -229,7 +229,7 @@ export default function Programs() {
             </span>
             <div className="h-px w-6 md:w-8 bg-secondary/50"></div>
           </div>
-          <h1 className="font-display text-2xl md:text-display-lg text-white mb-4 md:mb-6">
+          <h1 className="font-display text-4xl md:text-display-lg text-white mb-4 md:mb-6">
             Our Programs
           </h1>
           <p className="hidden md:block font-sans text-sm md:text-body-lg text-white/80 max-w-[540px] leading-relaxed">

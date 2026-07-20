@@ -26,7 +26,7 @@ export default function Accordion({ items }: AccordionProps) {
         return (
           <div
             key={index}
-            className={`border transition-all duration-300 rounded-xl md:rounded-[20px] shadow-sm ${
+            className={`border overflow-hidden transition-all duration-300 rounded-xl md:rounded-[20px] shadow-sm ${
               isOpen
                 ? "border-primary ring-1 ring-primary/20 bg-primary/[0.015] md:bg-surface-white"
                 : "border-border-warm bg-surface-white hover:border-primary/20"
