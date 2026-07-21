@@ -3,20 +3,20 @@ import MaterialIcon from "@/components/MaterialIcon";
 
 export default function BookPage() {
   return (
-    <main className="pt-32 pb-24 md:py-36 bg-background flex flex-col items-center">
+    <main className="pt-24 pb-12 md:py-36 bg-background flex flex-col items-center">
       {/* 1. Hero Section */}
-      <section className="max-w-[800px] w-full mx-auto text-center px-6 mb-16 mt-6">
-        <h1 className="font-display text-3xl md:text-5xl text-primary mb-6">
-          Book Your Free Trial Lesson
+      <section className="max-w-[800px] w-full mx-auto text-center px-4 md:px-6 mb-[52px] mt-2 md:mt-6">
+        <h1 className="font-display text-2xl sm:text-3xl md:text-5xl text-primary mb-4 md:mb-6">
+          Book Your Free Trial Classes
         </h1>
-        <p className="font-sans text-sm md:text-body-lg text-on-surface-variant mb-10 leading-relaxed max-w-[700px] mx-auto">
+        <p className="font-sans text-sm md:text-body-lg text-on-surface-variant mb-6 md:mb-10 leading-relaxed max-w-[700px] mx-auto">
           Choose a convenient date and time below to schedule your free 30–45
           minute chess trial. Meet your coach, experience our teaching approach,
-          and receive personalized guidance—all with no commitment.
+          and receive personalized guidance.
         </p>
 
         {/* Trust Badges */}
-        <div className="flex flex-wrap justify-center gap-6 md:gap-12 pt-4">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-12 pt-2 md:pt-4">
           <div className="flex items-center gap-2">
             <MaterialIcon
               name="event_available"
@@ -48,24 +48,24 @@ export default function BookPage() {
       </section>
 
       {/* 2. Zoom Scheduler Widget */}
-      <section className="w-full px-6 max-w-container-max mx-auto relative">
+      <section className="w-full px-4 md:px-6 max-w-container-max mx-auto relative overflow-hidden">
         {/* Glow backdrop effects */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary-container/20 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse duration-[8000ms]" />
         <div className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-        <div className="max-w-[1000px] mx-auto bg-white rounded-[24px] border border-border-warm shadow-xl overflow-hidden relative">
+        <div className="max-w-[1000px] mx-auto bg-white rounded-none md:rounded-[24px] border-none md:border md:border-border-warm shadow-none md:shadow-xl overflow-hidden relative z-10 pointer-events-auto">
           <iframe
             src="https://scheduler.zoom.us/prime-square-chess-academy/free-demo-with-our-expert-coach?embed=true"
             title="Prime Square Chess Academy Zoom Scheduler"
-            className="w-full min-h-[750px] border-none"
+            className="w-full min-h-[700px] md:min-h-[750px] border-none relative z-10"
             allow="camera; microphone; geolocation"
           />
         </div>
       </section>
 
       {/* 3. Help Section */}
-      <section id="help" className="mt-16 w-full px-6 max-w-container-max mx-auto text-center">
-        <div className="max-w-[800px] mx-auto bg-surface-container-lowest border border-border-warm shadow-sm rounded-xl py-10 px-8">
+      <section id="help" className="mt-16 w-full px-4 md:px-6 max-w-container-max mx-auto text-center">
+        <div className="max-w-[800px] mx-auto bg-surface-container-lowest border border-border-warm shadow-sm rounded-xl py-8 px-4 md:py-10 md:px-8">
           <h3 className="font-display text-xl md:text-headline-md text-primary mb-4">
             Need Help Booking Your Trial?
           </h3>
