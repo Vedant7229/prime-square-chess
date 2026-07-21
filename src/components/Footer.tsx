@@ -32,7 +32,7 @@ export default function Footer() {
             </p>
             <div className="pt-1 md:pt-2 space-y-4 max-md:text-center w-full">
               <p className="text-[13px] md:text-sm text-surface-bright/90 font-medium break-all max-md:break-normal">
-                Email - primesquarechessacademy@gmail.com
+                <Link href="mailto:[primesquarechessacademy@gmail.com]">primesquarechessacademy@gmail.com</Link>
               </p>
               {/* Social Icons — larger touch targets on mobile */}
               <div className="flex gap-3 md:gap-4 items-center max-md:justify-center">

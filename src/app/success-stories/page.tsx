@@ -62,13 +62,12 @@ function AchievementCard({
   return (
     <div
       ref={ref}
-      className={`group bg-white border border-border-warm p-4 overflow-hidden rounded-xl hover:-translate-y-2 hover:shadow-lg ${
-        prefersReducedMotion
+      className={`group bg-white border border-border-warm p-4 overflow-hidden rounded-xl hover:-translate-y-2 hover:shadow-lg ${prefersReducedMotion
           ? "opacity-100"
           : isIntersecting
-          ? "animate-fade-rise-mobile"
-          : "opacity-100 max-md:opacity-0"
-      }`}
+            ? "animate-fade-rise-mobile"
+            : "opacity-100 max-md:opacity-0"
+        }`}
       style={{
         animationDelay: isIntersecting && !prefersReducedMotion ? `${delayMs}ms` : "0ms",
       }}
@@ -78,13 +77,12 @@ function AchievementCard({
           src={item.src}
           alt={item.alt}
           fill
-          className={`object-cover transition-transform duration-[700ms] group-hover:scale-105 ${
-            prefersReducedMotion
+          className={`object-cover transition-transform duration-[700ms] group-hover:scale-105 ${prefersReducedMotion
               ? "opacity-100 scale-100"
               : isIntersecting
-              ? "animate-zoom-mobile"
-              : "opacity-100 max-md:opacity-0"
-          }`}
+                ? "animate-zoom-mobile"
+                : "opacity-100 max-md:opacity-0"
+            }`}
           style={{
             animationDelay: isIntersecting && !prefersReducedMotion ? `${delayMs}ms` : "0ms",
           }}
@@ -180,7 +178,8 @@ const testimonials = [
 export default function SuccessStories() {
   return (
     <main className="flex flex-col">
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes fadeRiseMobile {
           from {
             opacity: 0;
@@ -312,8 +311,7 @@ export default function SuccessStories() {
             Potential Through Chess.
           </h2>
           <p className="font-sans text-sm md:text-body-lg mb-8 md:mb-10 opacity-90 max-w-xl mx-auto leading-relaxed">
-            Experience a personalized trial lesson with experienced tournament
-            players. Discover how structured coaching helps children improve with
+            Experience a personalized trial lesson with experienced FIDE Rated Coaches. Discover how structured coaching helps children improve with
             confidence.
           </p>
           <Link

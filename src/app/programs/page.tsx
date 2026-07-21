@@ -561,8 +561,7 @@ export default function Programs() {
               Help Your Child Discover Their <br className="hidden md:inline" /> Potential Through Chess.
             </h2>
             <p className="font-sans text-sm md:text-body-lg mb-8 text-white/95 leading-relaxed">
-              Experience a personalized trial lesson with experienced tournament
-              players. <br className="hidden md:inline" /> Discover how structured coaching helps children improve
+              Experience a personalized trial lesson with experienced FIDE Rated Coaches. <br className="hidden md:inline" /> Discover how structured coaching helps children improve
               with confidence.
             </p>
             <Link

@@ -14,17 +14,17 @@ const classesFaqs = [
   {
     question: "What age groups do you teach?",
     answer:
-      "Our academy welcomes students from age 5 up to 17. We believe in early cognitive development and tailor our curriculum to meet the specific learning styles of different developmental stages, from young beginners to competitive adolescents.",
+      "Our primary focus is on students aged 6–18, but we also offer coaching for adults who want to learn or improve their chess skills. Every program is customized to the student's experience and goals.",
   },
   {
     question: "Are classes conducted online or offline?",
     answer:
-      "We offer a hybrid approach to suit your preference. Students can join our interactive global digital classroom via professional video conferencing tools or attend physical sessions at our premium academy locations. Both formats follow the same high-standard curriculum.",
+      "All classes are conducted online via Zoom. This allows students from around the world to learn with us through live, interactive sessions with personalized coaching.",
   },
   {
     question: "Do you offer one-to-one and group classes?",
     answer:
-      "Yes, we provide both. Private one-to-one sessions offer personalized focus on a student's specific tactical weaknesses, while our small group classes (limited to 6 students) foster healthy competition and collaborative analysis among peers.",
+      "Yes, we provide both. Private one-to-one sessions offer personalized focus on a student's specific tactical weaknesses, while our small group classes (limited to 4 students) foster healthy competition and collaborative analysis among peers.",
   },
 ];
 
@@ -42,7 +42,7 @@ const enrollmentFaqs = [
   {
     question: "What payment methods do you accept?",
     answer:
-      "We accept all major credit/debit cards (Visa, Mastercard, AMEX), bank transfers, and digital wallets like PayPal. Tuition fees are to be paid monthly in start of the month.",
+      "We accept all major credit/debit cards (Visa, Mastercard, AMEX), bank transfers, and digital wallets like PayPal. For international families, we also support international payment options. Any currency conversion charges, bank transfer fees, or payment processing fees charged by your bank or payment provider are the responsibility of the payer unless otherwise agreed. Tuition fees are to be paid monthly in start of the month.",
   },
 ];
 
@@ -153,8 +153,7 @@ export default function FAQsPage() {
             Help Your Child Discover Their <br /> Potential Through Chess.
           </h2>
           <p className="font-sans text-sm md:text-body-lg mb-10 opacity-90 max-w-xl mx-auto leading-relaxed">
-            Experience a personalized trial lesson with experienced tournament
-            players. <br /> Discover how structured coaching helps children improve with
+            Experience a personalized trial lesson with experienced FIDE Rated Coaches. <br /> Discover how structured coaching helps children improve with
             confidence.
           </p>
           <Link

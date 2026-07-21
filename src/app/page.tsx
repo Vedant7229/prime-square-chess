@@ -8,6 +8,7 @@ import homepg1 from "./homepg1.png";
 import homepg2 from "./homepg2.png";
 import homepg3 from "./homepg3.png";
 import homepg4 from "./homepg4.png";
+import school from "./school.jpg";
 
 
 // Static Assets URLs
@@ -20,9 +21,9 @@ const schoolLogos = [
     src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCNyGH6OStBK0aBc_btHIGXEgIPw1B7wBodWgMT2ex6bOTkBLgLnJwF8NwIhJ6OiaxweoRZzd4eEQa8SlxsJbYlF7qFNxBS-j_1-tkedGqQ7v38Klb9O5T9JfUEy4ftHVShaYVwUHpKjfQBexyrKAx8JaZUYyME3BxdtAt_Scs6jEeFv-FpT37UOA5-Hgg7MWcryC-u4kFXDjZAIgc3-pGrCqIdVnvWN71X7Wyh6CLSpy0am50ONy_A375m2cMSvj_oOD2TqJy2SqkW",
   },
   {
-    name: "New Era Senior Secondary School",
-    label: "New Era Senior Secondary School",
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUM3-6y-547p3ouY-Xf0NF-3q7ScuxMfxoDJYsETWZsVSkHDq5WpaQ19U&s=10",
+    name: "Green Valley",
+    label: "Green Valley",
+    src: school,
   },
   {
     name: "St. Xavier's School",
@@ -63,7 +64,7 @@ const steps = [
   {
     step: "1",
     title: "Book Free Trial",
-    desc: "Choose a convenient time and book your free 45-minute assessment session.",
+    desc: "Choose a convenient time and book your free 30-minute assessment session.",
     icon: "event_available",
     badgeText: "Online Booking in Few Clicks",
     src: homepg1,
@@ -277,7 +278,7 @@ export default function Homepage() {
                 key={school.name}
                 className="flex flex-col items-center gap-3 w-full md:w-56"
               >
-                <div className="relative h-12 w-12 xs:h-14 xs:w-14 sm:h-16 sm:w-28 md:w-32">
+                <div className="relative h-12 w-12 xs:h-14 xs:w-14 sm:h-16 sm:w-20 md:h-20 md:w-24">
                   <Image
                     src={school.src}
                     alt={school.name}
@@ -678,8 +679,7 @@ export default function Homepage() {
             Help Your Child Discover Their <br /> Potential Through Chess.
           </h2>
           <p className="font-sans text-sm md:text-body-lg mb-10 text-white/95 leading-relaxed">
-            Experience a personalized trial lesson with experienced tournament
-            players. <br /> Discover how structured coaching helps children improve with
+            Experience a personalized trial lesson with experienced FIDE Rated Coaches. <br /> Discover how structured coaching helps children improve with
             confidence.
           </p>
           <Link

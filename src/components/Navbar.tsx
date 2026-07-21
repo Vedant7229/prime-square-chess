@@ -79,12 +79,21 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-label-md text-label-md transition-colors duration-300 ${isActive
-                    ? "text-primary font-bold border-b-2 border-primary pb-1"
+                className={`relative font-label-md text-label-md py-2 px-1 transition-all duration-300 ease-out group ${
+                  isActive
+                    ? "text-primary font-bold"
                     : "text-on-surface-variant hover:text-primary"
-                  }`}
+                }`}
               >
-                {link.label}
+                <span>{link.label}</span>
+                {/* Smooth Animated Active Underline */}
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-[2.5px] bg-primary rounded-full transition-all duration-300 ease-out origin-left ${
+                    isActive
+                      ? "opacity-100 scale-x-100"
+                      : "opacity-0 scale-x-0 group-hover:opacity-40 group-hover:scale-x-75"
+                  }`}
+                />
               </Link>
             );
           })}
@@ -94,7 +103,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="/book"
-            className="hidden md:inline-block bg-primary text-on-primary font-button text-button px-6 py-3 rounded-lg hover:bg-primary-container active:scale-95 duration-150 transition-all text-center"
+            className="hidden md:inline-block bg-primary text-on-primary font-button text-button px-6 py-3 rounded-lg hover:bg-primary-container active:scale-95 duration-150 transition-all text-center shadow-xs"
           >
             Book Your Free Trial
           </Link>
@@ -122,7 +131,7 @@ export default function Navbar() {
             : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col gap-2 mt-8">
+        <div className="flex flex-col gap-2 mt-6">
           {navLinks.map((link, idx) => {
             const isActive =
               link.href === "/"
@@ -133,10 +142,10 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`font-headline-md text-2xl transition-all duration-300 py-4 px-2 border-b border-border-warm/50 flex items-center justify-between group active:bg-surface-container-low rounded-lg ${
+                className={`font-headline-md text-xl md:text-2xl transition-all duration-300 py-3.5 px-4 rounded-xl flex items-center justify-between group active:scale-[0.98] ${
                   isActive
-                    ? "text-primary font-bold"
-                    : "text-on-surface-variant hover:text-primary"
+                    ? "text-primary font-bold bg-primary/10 shadow-xs"
+                    : "text-on-surface-variant hover:text-primary hover:bg-surface-container-low"
                 } ${mobileMenuOpen ? "opacity-0 animate-fade-up" : ""}`}
                 style={{ animationDelay: `${idx * 50}ms` }}
               >
