@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, EB_Garamond } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -44,10 +45,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
+
       <body className="min-h-full flex flex-col bg-background text-on-surface antialiased">
         <Navbar />
         <div className="flex-grow flex flex-col">{children}</div>
         <Footer />
+        <GoogleAnalytics gaId="G-SWZ14D8LP7" />
       </body>
     </html>
   );
