@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, EB_Garamond } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
@@ -51,6 +51,7 @@ export default function RootLayout({
         <Navbar />
         <div className="flex-grow flex flex-col">{children}</div>
         <Footer />
+        <GoogleAnalytics gaId="G-SWZ14D8LP7" />
         <Analytics />
       </body>
     </html>
