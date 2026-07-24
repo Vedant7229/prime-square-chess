@@ -63,10 +63,10 @@ function AchievementCard({
     <div
       ref={ref}
       className={`group bg-white border border-border-warm p-4 overflow-hidden rounded-xl hover:-translate-y-2 hover:shadow-lg ${prefersReducedMotion
-          ? "opacity-100"
-          : isIntersecting
-            ? "animate-fade-rise-mobile"
-            : "opacity-100 max-md:opacity-0"
+        ? "opacity-100"
+        : isIntersecting
+          ? "animate-fade-rise-mobile"
+          : "opacity-100 max-md:opacity-0"
         }`}
       style={{
         animationDelay: isIntersecting && !prefersReducedMotion ? `${delayMs}ms` : "0ms",
@@ -78,10 +78,10 @@ function AchievementCard({
           alt={item.alt}
           fill
           className={`object-cover transition-transform duration-[700ms] group-hover:scale-105 ${prefersReducedMotion
-              ? "opacity-100 scale-100"
-              : isIntersecting
-                ? "animate-zoom-mobile"
-                : "opacity-100 max-md:opacity-0"
+            ? "opacity-100 scale-100"
+            : isIntersecting
+              ? "animate-zoom-mobile"
+              : "opacity-100 max-md:opacity-0"
             }`}
           style={{
             animationDelay: isIntersecting && !prefersReducedMotion ? `${delayMs}ms` : "0ms",
@@ -163,7 +163,7 @@ const testimonials = [
     parent: "Dr. Vinay Shah (IND)",
     child: "Vraj",
     quote:
-      "Vraj has been part of Prime Square since the beginning of his chess journey. Through Amit sir's structured guidance and regular practice, he built a strong foundation and steadily improved his game. It has been wonderful to see him perform well in competitive tournaments, win several prizes, and earn his FIDE rating. Amit sir's dedication played an important role in shaping Viraj's early chess journey.",
+      "Vraj has been part of Prime Square since the beginning of his chess journey. Through Amit sir's structured guidance and regular practice, he built a strong foundation and steadily improved his game. It has been wonderful to see him perform well in competitive tournaments, win several prizes, and earn his FIDE rating. Amit sir's dedication played an important role in shaping Vraj's early chess journey.",
     src: Vs2,
   },
   {
